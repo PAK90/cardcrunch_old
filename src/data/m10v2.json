@@ -3288,30 +3288,6 @@
       ]
     },
     {
-      "artist": "Eric Deschamps",
-      "cmc": 3,
-      "colorIdentity": [
-        "R"
-      ],
-      "colors": [
-        "Red"
-      ],
-      "flavor": "\"Rage courses in every heart, yearning to betray its rational prison.\"\n—Sarkhan Vol",
-      "id": "809eccc40646db41ee7a82b503e6e30f614cd1d1",
-      "imageName": "act of treason",
-      "layout": "normal",
-      "manaCost": "{2}{R}",
-      "multiverseid": 191082,
-      "name": "Act of Treason",
-      "number": "124",
-      "rarity": "Uncommon",
-      "text": "Gain control of target creature until end of turn. Untap that creature. It gains haste until end of turn. (It can attack and {T} this turn.)",
-      "type": "Sorcery",
-      "types": [
-        "Sorcery"
-      ]
-    },
-    {
       "artist": "Trevor Claxton",
       "cmc": 3,
       "colorIdentity": [
@@ -6535,30 +6511,6 @@
       "type": "Creature â€” Zombie Wizard",
       "types": [
         "Creature"
-      ]
-    },
-    {
-      "artist": "Greg Staples",
-      "cmc": 5,
-      "colorIdentity": [
-        "B"
-      ],
-      "colors": [
-        "Black"
-      ],
-      "flavor": "Few Cabal fighters fear death. They fear what follows it.",
-      "id": "5a4b513d8e209e3bced5d911a6449eaaf6dbb3c4",
-      "imageName": "cruel revival",
-      "layout": "normal",
-      "manaCost": "{4}{B}",
-      "multiverseid": 205367,
-      "name": "Cruel Revival",
-      "number": "23",
-      "rarity": "Common",
-      "text": "Destroy target non-Zombie creature. It can't be regenerated. Return up to one target Zombie card from your graveyard to your hand.",
-      "type": "Instant",
-      "types": [
-        "Instant"
       ]
     },
     {
