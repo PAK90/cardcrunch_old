@@ -17,7 +17,12 @@ var CardSearch = React.createClass({
     },
 
     handleListClick: function(e) {
-    	this.setState({searchString:e.target.textContent});
+        if(e.target.tagName == "LI") {
+            this.setState({searchString:e.target.firstChild.textContent});
+        }
+        else {            
+            this.setState({searchString:e.target.offsetParent.firstChild.textContent});
+        }
         this.setState({lineSelected:true});
     },
 

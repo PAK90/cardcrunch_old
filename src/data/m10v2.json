@@ -1377,30 +1377,6 @@
       ]
     },
     {
-      "artist": "Warren Mahy",
-      "cmc": 3,
-      "colorIdentity": [
-        "U"
-      ],
-      "colors": [
-        "Blue"
-      ],
-      "flavor": "\"I'm one masterpiece away from ruling this pathetic world.\"\n—Saldrath, master artificer",
-      "id": "e3b6d24ecb5ecb3ab4bfaed3472faaa7d0d0abd7",
-      "imageName": "fabricate",
-      "layout": "normal",
-      "manaCost": "{2}{U}",
-      "multiverseid": 189876,
-      "name": "Fabricate",
-      "number": "52",
-      "rarity": "Uncommon",
-      "text": "Search your library for an artifact card, reveal it, and put it into your hand. Then shuffle your library.",
-      "type": "Sorcery",
-      "types": [
-        "Sorcery"
-      ]
-    },
-    {
       "artist": "Brian Despain",
       "cmc": 2,
       "colorIdentity": [
