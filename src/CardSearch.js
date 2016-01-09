@@ -23,7 +23,8 @@ var CardSearch = React.createClass({
 
     render: function() {
         var cardCollection = this.props.items; // The items passed to this class are hopefully all the cards.
-        var searchString = this.state.searchString.trim().toLowerCase(); // The search string is the thing in the search bar. Surprise!
+        var placeholderString = this.props.placeholder;
+        var searchString = this.state.searchString.toLowerCase(); // The search string is the thing in the search bar. Surprise!
         var resultCount = 1;
 
         if(searchString.length > 0 && !this.state.lineSelected) {
@@ -50,17 +51,17 @@ var CardSearch = React.createClass({
 
             // Still searching, so return the search box and all the remaining filtered cards.
             return <div>
-	            <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder='Type here' />
+	            <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder={placeholderString} />
 	            <ul onClick={this.handleListClick}> 
 	                { cardCollection.map(function(card){
 	                    //return [<li><p>{card.name}</p><p id="manacost">{card.manaCost.replace(/\W/g, '')}</p></li>]; 
 	                    if (card.manaCost != undefined) {
-	                    	return <li>{card.name} {card.manaCost.replace(/\W/g, '')}</li>;
+	                    	return <li key={card.name}>{card.name} {card.manaCost.replace(/\W/g, '')}</li>; 
+                            // Regex magic to remove non-alphanumerical values.
 	                    }
 	                    else {
-	                    	return <li>{card.name}</li>;
+	                    	return <li key={card.name}>{card.name}</li>;
 	                    }
-	                    // Regex magic to remove non-alphanumerical values.
 	                }) }
 	            </ul>
 	        </div>;
@@ -73,7 +74,7 @@ var CardSearch = React.createClass({
             });
 
         	return <div>
-        		<input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder='Type here' />
+        		<input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder={placeholderString} />
         		<br/>
         		{ cardCollection.map(function(card){
         			// Only return an image if there's only one image (the search result) to return.
@@ -87,11 +88,4 @@ var CardSearch = React.createClass({
     }
 });
 
-// This loads a json object which contains an array called 'cards'.
-//var cards = require('json!./data/m10v2.json');
-
-// Render the CardSearch component on the page
-/*ReactDOM.render(
-    <CardSearch items={ cards } />
-);*/
 export default CardSearch;
