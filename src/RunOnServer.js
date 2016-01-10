@@ -19,7 +19,13 @@ var RunOnServer = React.createClass({
 	    });
     },
     handleClick: function(event) {
-    	this.runOnServer();
+    	//this.runOnServer();
+    	var spawn = require('child_process').spawn;
+    	var process = spawn('python',[this.props.url, 'lightning bolt', 'cancel']);
+
+    	process.stdout.on('data', function(data) {
+    		this.setState({data: data});
+    	});
     },
   	render: function() {
         return <div>
