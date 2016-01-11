@@ -19,17 +19,11 @@ var RunOnServer = React.createClass({
 	    });
     },
     handleClick: function(event) {
-    	//this.runOnServer();
-    	var spawn = require('child_process').spawn;
-    	var process = spawn('python',[this.props.url, 'lightning bolt', 'cancel']);
-
-    	process.stdout.on('data', function(data) {
-    		this.setState({data: data});
-    	});
+    	this.runOnServer();
     },
   	render: function() {
         return <div>
-        	<Button label="Do it" onClick={this.handleClick} accent primary raised />
+        	<Button label="Compare Cards" onClick={this.handleClick} accent primary raised />
         	<p>{this.state.data}</p>
         </div>;
     }

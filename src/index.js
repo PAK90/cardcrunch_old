@@ -13,7 +13,7 @@ ReactDOM.render(
         <tr>
             <td><CardSearch items={ cards } placeholder="Card 1 here" /></td>
             <td><CardSearch items={ cards } placeholder="Card 2 here"/></td>
-            <td><RunOnServer url="src/script/magicvector.py" /></td>
+            <td><RunOnServer url="py/comparecards" /></td>
         </tr>
     </tbody>
     </table>,
