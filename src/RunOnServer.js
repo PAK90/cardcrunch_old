@@ -10,6 +10,7 @@ var RunOnServer = React.createClass({
 		    url: this.props.url,
 		    dataType: 'text',
 		    cache: false,
+		    data: {card1: 'merfolk sovereign', card2: 'dragon whelp'},
 		    success: function(data) {
 		        this.setState({data: data});
 		    }.bind(this),

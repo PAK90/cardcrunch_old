@@ -7,13 +7,19 @@ new WebpackDevServer(webpack(config), {
   hot: true,
   historyApiFallback: true,
   proxy: {
-    '/py/comparecards': {
+    //'/src/script/magicvector.py': {
+      '/py/comparecards' : {
       target: 'https://www.google.ie',
       secure: false,
       bypass: function(req, res, proxyOptions) {
         var spawn = require('child_process').spawnSync;
-        var process = spawn('cmd.exe', ['/c', 'py\\comparecards.bat']);
+        var process = spawn('cmd.exe', ['/c', 'py\\comparecards.bat', req.query.card1, req.query.card2]);
         return '/py/results.txt';
+        /*var spawn = require('child_process').spawn;
+        var process = spawn('py', ['/src/script/magicvector.py', "copper myr", "dread warlock"]);
+        process.stdout.on('data', function(data) {
+          return data;
+        });*/
       }
     }
   }

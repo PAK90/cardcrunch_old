@@ -1,0 +1,12 @@
+{resultCards:[
+{deviation:0.8681674221757723,cardname: 'drake hatchling'},
+{deviation:0.8681674221757723,cardname: 'azimaet drake'},
+{deviation:0.8598909853102195,cardname: 'incursion specialist'},
+{deviation:0.859812135505606,cardname: 'flailing soldier'},
+{deviation:0.8562185363513608,cardname: "marchesa's smuggler"},
+{deviation:0.8532766451856826,cardname: 'avizoa'},
+{deviation:0.8529967242126245,cardname: 'flailing manticore'},
+{deviation:0.8528028317657975,cardname: 'cinder crawler'},
+{deviation:0.8525694603360299,cardname: 'kavu glider'},
+{deviation:0.8522454325091429,cardname: 'krovikan elementalist'}
+]}

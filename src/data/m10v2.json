@@ -4712,36 +4712,6 @@
       ]
     },
     {
-      "artist": "D. Alexander Gregory",
-      "cmc": 2,
-      "colorIdentity": [
-        "G"
-      ],
-      "colors": [
-        "Green"
-      ],
-      "flavor": "Before any major undertaking, a Cylian elf seeks the guidance of a visionary to learn the will of the gargantuan ancients.",
-      "id": "0f1c9dc287aea444699c29395227b6a1333bb0a4",
-      "imageName": "elvish visionary",
-      "layout": "normal",
-      "manaCost": "{1}{G}",
-      "multiverseid": 194424,
-      "name": "Elvish Visionary",
-      "number": "178",
-      "power": "1",
-      "rarity": "Common",
-      "subtypes": [
-        "Elf",
-        "Shaman"
-      ],
-      "text": "When Elvish Visionary enters the battlefield, draw a card.",
-      "toughness": "1",
-      "type": "Creature — Elf Shaman",
-      "types": [
-        "Creature"
-      ]
-    },
-    {
       "artist": "Daren Bader",
       "cmc": 4,
       "colorIdentity": [
@@ -5329,30 +5299,6 @@
       "type": "Creature — Hydra",
       "types": [
         "Creature"
-      ]
-    },
-    {
-      "artist": "Steven Belledin",
-      "cmc": 2,
-      "colorIdentity": [
-        "G"
-      ],
-      "colors": [
-        "Green"
-      ],
-      "flavor": "Nature grows solutions to its problems.",
-      "id": "67603798be00c5fc6366287e9296da0d80bb6a0c",
-      "imageName": "rampant growth",
-      "layout": "normal",
-      "manaCost": "{1}{G}",
-      "multiverseid": 189887,
-      "name": "Rampant Growth",
-      "number": "201",
-      "rarity": "Common",
-      "text": "Search your library for a basic land card and put that card onto the battlefield tapped. Then shuffle your library.",
-      "type": "Sorcery",
-      "types": [
-        "Sorcery"
       ]
     },
     {

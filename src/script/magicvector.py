@@ -65,7 +65,7 @@ def sanitizeInput(cardline):
         cardline = cardline.replace(match," ".join(match))
     return (nameMatch.group(1),cardline)
 
-def convertEncodedCorpusForTraining(filename="corpus_encoded.txt",outname="convertedcorpus.txt"):
+def convertEncodedCorpusForTraining(filename="C:\Users\Arvids\Documents\react-start\src\script\corpus_encoded.txt",outname="C:/Users/Arvids/Documents/react-start/src/script/convertedcorpus.txt"):
     f = open(filename)
     outputFile = open(outname,'w')
     for cardline in f:
@@ -74,7 +74,7 @@ def convertEncodedCorpusForTraining(filename="corpus_encoded.txt",outname="conve
     f.close()
     outputFile.close()
 
-def getOriginalCardVectors(filename="corpus_encoded.txt",vectorFileName="vectors_cbow.bin"):
+def getOriginalCardVectors(filename="C:/Users/Arvids/Documents/react-start/src/script/corpus_encoded.txt",vectorFileName="C:/Users/Arvids/Documents/react-start/src/script/vectors_cbow.bin"):
     cards = open(filename)
     (vocab,vecs) = getVectorData(vectorFileName)
     outvecs = []
@@ -134,16 +134,19 @@ def combineCards(vecdata,cardLineA,cardLineB,scaleFactorA=1.0,scaleFactorB=1.0,m
     vecB = scaleVector(makevector(vocab,vecs,cardLineB),scaleFactorB) 
     vecC = addVectors(vecA,vecB)
     if getMatches:
-        print("Closest matches are...")
-        print("------------")
+        #print("Closest matches are...")
+        print("{resultCards:[")
         comparisons = [(cosine_similarity(vecC,v),name) for (name,v) in cardvecs]
         comparisons.sort()
         for i in range(matchN):
-            print(str(i) + ", " + str(comparisons[len(comparisons)-1-i]))
-        print("------------")
+            if(i+1 != matchN):
+                print("{" + str(comparisons[len(comparisons)-1-i]).replace("(", "deviation:").replace(",",",cardname:").replace(")","") + "},")
+            else: # Have to account for json's "last item has no comma" stuff.
+                print("{" + str(comparisons[len(comparisons)-1-i]).replace("(", "deviation:").replace(",",",cardname:").replace(")","") + "}")
+        print("]}")
     return vecC
 
-def getCardTable(corpusFileName="corpus_encoded.txt"):
+def getCardTable(corpusFileName="C:/Users/Arvids/Documents/react-start/src/script/corpus_encoded.txt"):
     table = {}
     cf = open(corpusFileName,'r')
     for line in cf:
