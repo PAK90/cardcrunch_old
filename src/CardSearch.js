@@ -21,16 +21,19 @@ var CardSearch = React.createClass({
         // If the list was clicked, use first child's text.
         if(e.target !== undefined) {
             if(e.target.tagName == "LI") {
-                this.setState({searchString: e.target.firstChild.textContent});
+                this.setState({searchString: e.target.firstChild.textContent}, this.props.updateShared(e.target.firstChild.textContent));
             } // If a span was clicked, use the parent's text (that of the LI item).
             else if(e.target.tagName == "SPAN"){            
-                this.setState({searchString: e.target.offsetParent.firstChild.textContent});
+                this.setState({searchString: e.target.offsetParent.firstChild.textContent}, this.props.updateShared(e.target.offsetParent.firstChild.textContent));
             } // If it's neither of those, it'll be the random button click.
         }
         else {
-            this.setState({searchString: e.name});
+            this.setState({searchString: e.name}, this.props.updateShared(e.name));
         }
         this.setState({lineSelected:true});
+
+        // Send the new cardname to the Compare button.
+        //this.props.updateShared(this.state.searchString);
     },
 
     handleRandomButtonClick: function(e) {
@@ -96,57 +99,75 @@ var CardSearch = React.createClass({
             });
 
             // Colour identity colours!
-            var borderColour;
+            var borderColour1, borderColour2;
             var gradient = false;
             if (cardCollection.length == 1) {
                 if (cardCollection[0].colorIdentity !== undefined) {
-                    if (cardCollection[0].colorIdentity.length == 1) { // Monocoloured cards.
+                    if (cardCollection[0].colorIdentity.length <= 2) { // Monocoloured cards. Also encode the first colour of dual-coloured cards.
                         var colourCode = cardCollection[0].colorIdentity[0];
                         switch (colourCode) {
                             case 'W':
-                                borderColour = "#f8f9f4";
+                                borderColour1 = "#f8f9f4";
                                 break;
                             case 'U':
-                                borderColour = "#0083c5";
+                                borderColour1 = "#0083c5";
                                 break;
                             case 'R':
-                                borderColour = "#ec4b26";
+                                borderColour1 = "#ec4b26";
                                 break;
                             case 'B':
-                                borderColour = "#2b281f";
+                                borderColour1 = "#2b281f";
                                 break;
                             case 'G':
-                                borderColour = "#008045";
+                                borderColour1 = "#008045";
                                 break;
                         }
-                    }
-                    else if (cardCollection[0].colorIdentity.length == 2) { // Gold-but-coloured cards.
-                        //gradient!
-                        gradient = true;
-                        borderColour = "linear-gradient(0083c5,ec4b26)";
+
+                        if (cardCollection[0].colorIdentity.length == 2) { // Gold-but-coloured cards. Encode the second colour.
+                            //gradient!
+                            gradient = true;
+                            var colourCode = cardCollection[0].colorIdentity[1];
+                            switch (colourCode) {
+                                case 'W':
+                                    borderColour2 = "#f8f9f4";
+                                    break;
+                                case 'U':
+                                    borderColour2 = "#0083c5";
+                                    break;
+                                case 'R':
+                                    borderColour2 = "#ec4b26";
+                                    break;
+                                case 'B':
+                                    borderColour2 = "#2b281f";
+                                    break;
+                                case 'G':
+                                    borderColour2 = "#008045";
+                                    break;
+                            }
+                        }
                     }
                     else { // Pure gold cards.
-                        borderColour = "#f3de7f"
+                        borderColour1 = "#f3de7f"
                     }
                 }
                 else {
-                    borderColour = "#c1c9c3"; // It's an artifact/land, so grey.
+                    borderColour1 = "#c1c9c3"; // It's an artifact/land, so grey.
                 }
             }
             else {
-                borderColour = '#88888';
+                borderColour1 = '#88888';
             }
 
             var borderStyle;
             if (gradient) {
                 borderStyle = {
                     borderImageSlice: 1,
-                    borderImage: '-webkit-linear-gradient(right, #FC913A 0%, #FC913A 44%, #FF4E50 55%, #FF4E50 100%) 1'
+                    borderImage: '-webkit-linear-gradient(right, '+borderColour2+' 0%, '+borderColour2+' 40%, '+borderColour1+' 60%, '+borderColour1+' 100%) 1'
                 };   
             }
             else {             
                 borderStyle = {
-                    'borderColor': borderColour
+                    'borderColor': borderColour1
                 };   
             }
 
