@@ -34,10 +34,14 @@
   },
   "dependencies": {
     "classnames": "^2.2.1",
+    "json-loader": "^0.5.4",
+    "mtg-json": "^1.0.1",
     "normalize.css": "^3.0.3",
     "react": "^0.14.3",
     "react-addons-css-transition-group": "^0.14.3",
     "react-dom": "^0.14.3",
-    "react-toolbox": "^0.14.0"
+    "react-toolbox": "^0.14.0",
+    "request": "^2.65.0",
+    "underscore": "^1.8.3"
   }
 }

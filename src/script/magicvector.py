@@ -140,9 +140,9 @@ def combineCards(vecdata,cardLineA,cardLineB,scaleFactorA=1.0,scaleFactorB=1.0,m
         comparisons.sort()
         for i in range(matchN):
             if(i+1 != matchN):
-                print((("{" + str(comparisons[len(comparisons)-1-i]).replace("(", "\"deviation\":").replace(",",",\"cardname\":").replace(")","") + "},").replace(": '", ": \"")).replace("'}", "\"}"))
+                print((("{" + str(comparisons[len(comparisons)-1-i]).replace("(", "\"deviation\":").replace(",",",\"cardname\":", 1).replace(")","") + "},").replace(": '", ": \"")).replace("'}", "\"}"))
             else: # Have to account for json's "last item has no comma" stuff.
-                print((("{" + str(comparisons[len(comparisons)-1-i]).replace("(", "\"deviation\":").replace(",",",\"cardname\":").replace(")","") + "}").replace(": '", ": \"")).replace("'}", "\"}"))
+                print((("{" + str(comparisons[len(comparisons)-1-i]).replace("(", "\"deviation\":").replace(",",",\"cardname\":", 1).replace(")","") + "}").replace(": '", ": \"")).replace("'}", "\"}"))
         print("]}")
     return vecC
 

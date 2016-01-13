@@ -1,12 +1,12 @@
 {"resultCards":[
-{"deviation":0.9512185387154654,"cardname": "from beyond"},
-{"deviation":0.9479782381975321,"cardname": "wayfarer's bauble"},
-{"deviation":0.9420072313005833,"cardname": "terminal moraine"},
-{"deviation":0.9411443141377193,"cardname": "blighted woodland"},
-{"deviation":0.9386825791078105,"cardname": "growth spasm"},
-{"deviation":0.9352983587107733,"cardname": "embodiment of spring"},
-{"deviation":0.93391856497415,"cardname": "expedition map"},
-{"deviation":0.9320326216950787,"cardname": "journeyer's kite"},
-{"deviation":0.9310178510513015,"cardname": "krosan verge"},
-{"deviation":0.9288807947104005,"cardname": "silkwing scout"}
+{"deviation":0.8997708057944808,"cardname": "striped bears"},
+{"deviation":0.8937722657801144,"cardname": "hunted troll"},
+{"deviation":0.8924909008394062,"cardname": "vital splicer"},
+{"deviation":0.890575200420869,"cardname": "setessan starbreaker"},
+{"deviation":0.8844245411836363,"cardname": "reclamation sage"},
+{"deviation":0.8824803633439436,"cardname": "infested roothold"},
+{"deviation":0.8821797984083614,"cardname": "shaman of spring"},
+{"deviation":0.8804960256441053,"cardname": "bounding krasis"},
+{"deviation":0.8804073669975925,"cardname": "jungle barrier"},
+{"deviation":0.8780756389710022,"cardname": "guardian of cloverdell"}
 ]}

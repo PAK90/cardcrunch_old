@@ -10,7 +10,8 @@ var RunOnServer = React.createClass({
 		    url: this.props.url,
 		    dataType: 'text',
 		    cache: false,
-		    data: {card1: this.props.card1.toLowerCase(), card2: this.props.card2.toLowerCase()},
+		    // The card names are stored in the python script sources in lowercase and with ~ instead of -.
+		    data: {card1: this.props.card1.toLowerCase().replace("-","~"), card2: this.props.card2.toLowerCase().replace("-","~")},
 		    success: function(data) {
 		        this.setState({data: data});
 		    }.bind(this),

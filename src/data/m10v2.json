@@ -28,6 +28,60 @@
       ]
     },
     {
+      "artist": "Aleksi Briclot",
+      "cmc": 4,
+      "colorIdentity": [
+        "W"
+      ],
+      "colors": [
+        "White"
+      ],
+      "id": "8165bd91769cc783011ac1f5721f41509b22af42",
+      "imageName": "ajani goldmane",
+      "layout": "normal",
+      "loyalty": 4,
+      "manaCost": "{2}{W}{W}",
+      "multiverseid": 191239,
+      "name": "Ajani Goldmane",
+      "number": "1",
+      "rarity": "Mythic Rare",
+      "subtypes": [
+        "Ajani"
+      ],
+      "text": "+1: You gain 2 life.\n−1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\n−6: Put a white Avatar creature token onto the battlefield. It has \"This creature's power and toughness are each equal to your life total.\"",
+      "type": "Planeswalker — Ajani",
+      "types": [
+        "Planeswalker"
+      ]
+    },
+    {
+      "artist": "Aleksi Briclot",
+      "cmc": 4,
+      "colorIdentity": [
+        "W"
+      ],
+      "colors": [
+        "White"
+      ],
+      "id": "8165bd91769cc783011ac1f5721f41509b22af42",
+      "imageName": "ajani goldmane",
+      "layout": "normal",
+      "loyalty": 4,
+      "manaCost": "{2}{W}{W}",
+      "multiverseid": 191239,
+      "name": "Ajani Goldmane",
+      "number": "1",
+      "rarity": "Mythic Rare",
+      "subtypes": [
+        "Ajani"
+      ],
+      "text": "+1: You gain 2 life.\n−1: Put a +1/+1 counter on each creature you control. Those creatures gain vigilance until end of turn.\n−6: Put a white Avatar creature token onto the battlefield. It has \"This creature's power and toughness are each equal to your life total.\"",
+      "type": "Planeswalker — Ajani",
+      "types": [
+        "Planeswalker"
+      ]
+    },
+    {
       "artist": "Andrew Robinson",
       "cmc": 4,
       "colorIdentity": [

@@ -39,7 +39,7 @@ var CardSearch = React.createClass({
     handleRandomButtonClick: function(e) {
         var cardCollection = this.props.items;
         // Generate random number between 0 and 1, multiply by number of cards, and floor (round) it to an integer.
-        var randomCard = cardCollection.cards[Math.floor(Math.random()*cardCollection.cards.length)];
+        var randomCard = cardCollection[Math.floor(Math.random()*cardCollection.length)];
         this.handleListClick(randomCard);
     },
 
@@ -51,7 +51,7 @@ var CardSearch = React.createClass({
 
         if(searchString.length > 0 && !this.state.lineSelected) {
             // We are searching. Filter the results. This returns only those cards that match the search string.
-            cardCollection = cardCollection.cards.filter(function(card){
+            cardCollection = cardCollection.filter(function(card){
             	// I presume the match is expensive, so only do it once and assign the result to a bool.
             	var match = card.name.toLowerCase().match( searchString );
             	if (resultCount <= 10 && match) { // Keep the results list small.
@@ -93,7 +93,7 @@ var CardSearch = React.createClass({
 
         // Either a line has been selected or the search field is blank.
         else {
-        	cardCollection = cardCollection.cards.filter(function(card){
+        	cardCollection = cardCollection.filter(function(card){
                 // Use the start and end delimiters; we're searching for exact match only at this point (e.g. 'Shatter', not 'Shatterskull').
                 return (card.name.toLowerCase().match( "\^"+searchString+"\$" ));
             });

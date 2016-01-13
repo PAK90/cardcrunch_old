@@ -22,11 +22,18 @@ module.exports = {
       path.resolve(__dirname, './node_modules')
     ]
   },
+  node: {
+    console: true,
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty'
+  },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin('style.css')
   ],
   module: {
+    noParse: /node_modules\/json-schema\/lib\/validate\.js/,
     loaders: [
       {
         test: /\.js$/,
@@ -38,7 +45,8 @@ module.exports = {
       {
         test: /(\.scss|\.css)$/,
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap!toolbox')
-      }
+      },
+      { test: /\.json$/, loader: "json-loader" }
     ]
   },
   postcss: [autoprefixer]
