@@ -17,19 +17,34 @@ var Parent = React.createClass({
     getInitialState: function(){
         return {card1: "", card2: ""};
     },
-    updateShared1: function(card){
+    updateCard1: function(card){
         this.setState({card1: card});
     },
-    updateShared2: function(card){
+    updateCard2: function(card){
         this.setState({card2: card});
+    },
+    updateCombineState: function(state){
+        this.setState({combineReady: state});
     },
     render: function() {
         return (<table>
         <tbody>
             <tr>
-                <td><CardSearch items={ uniqueCards } placeholder="Card 1 here" card={this.state.card1} updateShared={this.updateShared1} /></td>
-                <td><RunOnServer url="py/comparecards" card1={this.state.card1} card2={this.state.card2}/></td>
-                <td><CardSearch items={ uniqueCards } placeholder="Card 2 here" card={this.state.card2} updateShared={this.updateShared2} /></td>
+                <td><CardSearch 
+                    items={ uniqueCards } 
+                    placeholder="Card 1 here" 
+                    card={this.state.card1} 
+                    updateCard={this.updateCard1} 
+                    updateCombineState={this.updateCombineState}/>
+                </td>
+                <td><RunOnServer url="py/comparecards" card1={this.state.card1} card2={this.state.card2} combineReady={this.state.combineReady}/></td>
+                <td><CardSearch 
+                    items={ uniqueCards } 
+                    placeholder="Card 2 here" 
+                    card={this.state.card2} 
+                    updateCard={this.updateCard2} 
+                    updateCombineState={this.updateCombineState}/>
+                </td>
             </tr>
         </tbody>
         </table>);

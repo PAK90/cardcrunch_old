@@ -27,15 +27,15 @@ var RunOnServer = React.createClass({
   	render: function() {
   		if (this.state.data == "Processing..." || this.state.data.length == 0) {
 	        return <div>
-	        	<Button label="Compare Cards" onClick={this.handleClick} accent primary raised />
+	        	<Button label="Combine Cards" disabled={!this.props.combineReady} onClick={this.handleClick} accent primary raised />
 	        	<p>{this.state.data}</p>
 	        </div>;
 	    }
 	    else if (this.state.data.length !== 0) {
 	    	return <div>
-	        	<Button label="Compare Cards" onClick={this.handleClick} accent primary raised />
+	        	<Button label="Combine Cards" disabled={!this.props.combineReady} onClick={this.handleClick} accent primary raised />
 	        	<br />
-	        	<ul > 
+	        	<ul id="results"> 
 	                { JSON.parse(this.state.data).resultCards.map(function(card){
 	                    return <li>{card.cardname} {card.deviation}</li>;                     
 	                }) }

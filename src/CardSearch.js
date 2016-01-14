@@ -14,26 +14,23 @@ var CardSearch = React.createClass({
         // that was assigned to it. In our case this is this.state.searchString.
 
         this.setState({searchString:e.target.value});
-        this.setState({lineSelected:false});
+        this.setState({lineSelected:false}, this.props.updateCombineState(false));
     },
 
     handleListClick: function(e) {
         // If the list was clicked, use first child's text.
         if(e.target !== undefined) {
             if(e.target.tagName == "LI") {
-                this.setState({searchString: e.target.firstChild.textContent}, this.props.updateShared(e.target.firstChild.textContent));
+                this.setState({searchString: e.target.firstChild.textContent}, this.props.updateCard(e.target.firstChild.textContent));
             } // If a span was clicked, use the parent's text (that of the LI item).
             else if(e.target.tagName == "SPAN"){            
-                this.setState({searchString: e.target.offsetParent.firstChild.textContent}, this.props.updateShared(e.target.offsetParent.firstChild.textContent));
+                this.setState({searchString: e.target.offsetParent.firstChild.textContent}, this.props.updateCard(e.target.offsetParent.firstChild.textContent));
             } // If it's neither of those, it'll be the random button click.
         }
         else {
-            this.setState({searchString: e.name}, this.props.updateShared(e.name));
+            this.setState({searchString: e.name}, this.props.updateCard(e.name));
         }
-        this.setState({lineSelected:true});
-
-        // Send the new cardname to the Compare button.
-        //this.props.updateShared(this.state.searchString);
+        this.setState({lineSelected:true}, this.props.updateCombineState(true));
     },
 
     handleRandomButtonClick: function(e) {

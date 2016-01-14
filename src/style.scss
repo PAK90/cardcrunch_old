@@ -64,6 +64,12 @@ ul li{
     transition: 0.3s;
 }
 
+ul#results li{
+    display: inline;
+    background-color: #7B8585;
+    color: #F8F8F8;
+}
+
 ul li a{
     position: absolute;
     left: 160px;
