@@ -170,13 +170,13 @@ var CardSearch = React.createClass({
 
         	return <div>
         		<input type="text" style={borderStyle} value={this.state.searchString} onChange={this.handleChange} placeholder={placeholderString} />
-        		<Button type="button" className="random" accent primary raised onClick={this.handleRandomButtonClick}>Random Card</Button>
+        		<Button type="button" id="random" accent primary raised onClick={this.handleRandomButtonClick}>Random Card</Button>
                 <br />
         		{ cardCollection.map(function(card){
         			// Only return an image if there's only one image (the search result) to return.
         			// If not, don't return this and there will only be the search box.
         			if (cardCollection.length == 1) {
-                    	return <img src={'https://image.deckbrew.com/mtg/multiverseid/'+card.multiverseid+'.jpg'}/>
+                    	return <img src={'https://image.deckbrew.com/mtg/multiverseid/'+card.multiverseids[card.multiverseids.length-1].multiverseid+'.jpg'}/>
                     }
                 }) }
         	</div>

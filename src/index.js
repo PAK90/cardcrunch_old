@@ -4,14 +4,26 @@ import CardSearch from './CardSearch';
 import RunOnServer from './RunOnServer';
 require('./style.scss');
 
-var under = require('underscore');
-// This used to be 'json!.data/m10v2.json' until I put it in webpack.config.js. Confusing stuff...
-var cards = require('./data/m10v2.json');
+// This used to be 'json!.data/allCards.json' until I put it in webpack.config.js. Confusing stuff...
+var cards = require('./data/allCards.json');
 
-// Remove all duplicates from the cards array with the staggeringly useful uniq function.
-var uniqueCards = under.uniq(cards.cards, false, function(x) {
-    return x.name;
+// 'cards' is an object full of objects, so instead turn it into an array.
+// Works by creating a new property called 'cardName' in the object, attaching the rest of the object with && and returning the lot into a new var.
+var cardArray = Object.keys(cards).map(function(cardName) {
+    return (cards[cardName].cardName = cardName) && cards[cardName];
 });
+
+// Turn cards object keys into the format returned by the python script.
+// Just go in and create a new key, and replace each object's key with the new key.
+for (var key in cards) {
+    var keyLower = key.toLowerCase();
+    var keyLowerDash = keyLower.replace("-", "~").replace("æ","ae").replace('û','u').replace('!','');
+    if (keyLowerDash !== key) {
+        var temp = cards[key];
+        delete cards[key];
+        cards[keyLowerDash] = temp;
+    }
+}
 
 var Parent = React.createClass({
     getInitialState: function(){
@@ -31,15 +43,20 @@ var Parent = React.createClass({
         <tbody>
             <tr>
                 <td><CardSearch 
-                    items={ uniqueCards } 
+                    items={ cardArray } 
                     placeholder="Card 1 here" 
                     card={this.state.card1} 
                     updateCard={this.updateCard1} 
                     updateCombineState={this.updateCombineState}/>
                 </td>
-                <td><RunOnServer url="py/comparecards" card1={this.state.card1} card2={this.state.card2} combineReady={this.state.combineReady}/></td>
+                <td><RunOnServer 
+                    url="py/comparecards" 
+                    card1={this.state.card1} 
+                    card2={this.state.card2} 
+                    combineReady={this.state.combineReady}
+                    items={ cards }/></td>
                 <td><CardSearch 
-                    items={ uniqueCards } 
+                    items={ cardArray } 
                     placeholder="Card 2 here" 
                     card={this.state.card2} 
                     updateCard={this.updateCard2} 

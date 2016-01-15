@@ -1,12 +1,12 @@
 {"resultCards":[
-{"deviation":0.8440178657569652,"cardname": "unified front"},
-{"deviation":0.8440178657569646,"cardname": "read the bones"},
-{"deviation":0.8329930669922989,"cardname": "martyr of sands"},
-{"deviation":0.8285103094025961,"cardname": "jasmine seer"},
-{"deviation":0.8215488995580343,"cardname": "entropic eidolon"},
-{"deviation":0.8164828700294818,"cardname": "shrieking grotesque"},
-{"deviation":0.8150814311603295,"cardname": "endrek sahr, master breeder"},
-{"deviation":0.8061727470426744,"cardname": "carnival of souls"},
-{"deviation":0.8009169822907345,"cardname": "trading post"},
-{"deviation":0.7986917138663254,"cardname": "royal herbalist"}
+{"deviation":0.8822926816975928,"cardname": "thrull wizard"},
+{"deviation":0.8697736915301626,"cardname": "greed"},
+{"deviation":0.8680544575275005,"cardname": "corrupt official"},
+{"deviation":0.8644375567123265,"cardname": "slinking skirge"},
+{"deviation":0.8627585755474196,"cardname": "orzhov guildmage"},
+{"deviation":0.8566813877902686,"cardname": "carrionette"},
+{"deviation":0.8563614047517513,"cardname": "dementia bat"},
+{"deviation":0.8556444096514726,"cardname": "evincar's justice"},
+{"deviation":0.8554039236481374,"cardname": "pit raptor"},
+{"deviation":0.8517950792566802,"cardname": "silumgar monument"}
 ]}

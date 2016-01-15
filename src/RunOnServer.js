@@ -11,7 +11,8 @@ var RunOnServer = React.createClass({
 		    dataType: 'text',
 		    cache: false,
 		    // The card names are stored in the python script sources in lowercase and with ~ instead of -.
-		    data: {card1: this.props.card1.toLowerCase().replace("-","~"), card2: this.props.card2.toLowerCase().replace("-","~")},
+		    data: {card1: this.props.card1.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!',''),
+		     	   card2: this.props.card2.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','')},
 		    success: function(data) {
 		        this.setState({data: data});
 		    }.bind(this),
@@ -25,8 +26,15 @@ var RunOnServer = React.createClass({
     	this.setState({data: "Processing..."});
     },
   	render: function() {
+  		var cardObject = this.props.items;
   		if (this.state.data == "Processing..." || this.state.data.length == 0) {
 	        return <div>
+	        	<Button label="Combine Cards" disabled={!this.props.combineReady} onClick={this.handleClick} accent primary raised />
+	        	<p>{this.state.data}</p>
+	        </div>;
+	    }
+	    else if (this.state.data.includes("Traceback")) {
+	    	return <div>
 	        	<Button label="Combine Cards" disabled={!this.props.combineReady} onClick={this.handleClick} accent primary raised />
 	        	<p>{this.state.data}</p>
 	        </div>;
@@ -37,7 +45,7 @@ var RunOnServer = React.createClass({
 	        	<br />
 	        	<ul id="results"> 
 	                { JSON.parse(this.state.data).resultCards.map(function(card){
-	                    return <li>{card.cardname} {card.deviation}</li>;                     
+	                    return <li><img src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/> {card.deviation}</li>;                     
 	                }) }
 	            </ul>
 	        </div>;
