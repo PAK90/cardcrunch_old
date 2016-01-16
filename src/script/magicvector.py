@@ -1,6 +1,7 @@
 import re,sys,subprocess,os,struct,math
 from os import listdir
 from os.path import isfile, join
+from multiprocessing.dummy import Pool as ThreadPool
 
 max_w = 50 #Max length of vocabulary entries
 
@@ -157,29 +158,15 @@ def getCardTable(corpusFileName="src/script/corpus_encoded.txt"):
     cf.close()
     return table
 
-#vocab,vecs,cardvecs = getOriginalCardVectors()
-#geistStr= sanitizeInput("|geist of saint traft|legendary|creature||spirit cleric|&^^/&^^|{^WWUU}|hexproof \whenever @ attacks, put a &^^^^/&^^^^ white angel creature token with flying onto the battlefield tapped and attacking. exile that token at end of combat.|")
-#boltStr = sanitizeInput("|lightning bolt||instant||||{RR}|@ deals &^^^ damage to target creature or player.|")
-
-# geistVector = makevector(vocab,vecs,geistStr[1])
-# boltVector = makevector(vocab,vecs,boltStr[1])
-
-
-# comboVector = addVectors(geistVector,boltVector)
-
-
-# comparisons = [(cosine_similarity(comboVector,v),name) for (name,v) in cardvecs]
-# comparisons.sort()
-# for i in range(10):
-#     print(str(i) + ", " + str(comparisons[len(comparisons)-1-i]))
+pool = ThreadPool(4)
 
 vecdata = getOriginalCardVectors()
 
 table = getCardTable()
 str1 = table[str(sys.argv[1])]
 str2 = table[str(sys.argv[2])]
-combineCards(vecdata,str1,str2)
-
+#pool.map(combineCards(vecdata,str1,str2));
+combineCards(vecdata,str1,str2);
 
 
 

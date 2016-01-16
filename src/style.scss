@@ -35,7 +35,7 @@ input[type=text]{
     padding: 5px 5px;
     font-size: 15px;
     box-shadow: 0 1px 1px #DDD;
-    width: 223px;
+    width: 263px;
     outline: none;
     display: block;
     color: #7B8585;
@@ -70,21 +70,21 @@ ul li{
 
 /* The card images within the list items. */
 ul li img{
-    height: 200px;
-    align: middle;
+    /*height: 200px;*/
+    transform: scale(0.6, 0.6);
+    -ms-transform: scale(0.6, 0.6);
+    -webkit-transform: scale(0.6, 0.6);
+    align: top;
     padding: 3px;
     transition: 0.3s;
 }
 
 /* Those images when hovered over. */
 ul li img:hover{
-    height: 311px
-}
-
-#results li{
-    display: inline;
-    background-color: #7B8585;
-    color: #F8F8F8;
+    /*height: 311px*/
+    transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
 }
 
 ul li a{
@@ -98,4 +98,12 @@ ul li a{
 /* The individual list items when hovered over. */
 ul li:hover{
     background-color:#d8f2f1;
+}
+
+#result#result{
+    display: inline !important; 
+    background-color: #7B8585 !important;
+    color: #F8F8F8 !important;
+    height: 200px !important;
+    overflow: visible !important;
 }

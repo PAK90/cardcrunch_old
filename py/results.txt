@@ -1,12 +1,12 @@
 {"resultCards":[
-{"deviation":0.8822926816975928,"cardname": "thrull wizard"},
-{"deviation":0.8697736915301626,"cardname": "greed"},
-{"deviation":0.8680544575275005,"cardname": "corrupt official"},
-{"deviation":0.8644375567123265,"cardname": "slinking skirge"},
-{"deviation":0.8627585755474196,"cardname": "orzhov guildmage"},
-{"deviation":0.8566813877902686,"cardname": "carrionette"},
-{"deviation":0.8563614047517513,"cardname": "dementia bat"},
-{"deviation":0.8556444096514726,"cardname": "evincar's justice"},
-{"deviation":0.8554039236481374,"cardname": "pit raptor"},
-{"deviation":0.8517950792566802,"cardname": "silumgar monument"}
+{"deviation":0.9204646202087639,"cardname": "wind dancer"},
+{"deviation":0.910673366810461,"cardname": "trained condor"},
+{"deviation":0.910673366810461,"cardname": "ersatz gnomes"},
+{"deviation":0.9092558614117358,"cardname": "gust~skimmer"},
+{"deviation":0.9083695316887553,"cardname": "telethopter"},
+{"deviation":0.9064330074896166,"cardname": "chimeric sphere"},
+{"deviation":0.8978223049333977,"cardname": "jawbone skulkin"},
+{"deviation":0.8969990513616782,"cardname": "disciple of kangee"},
+{"deviation":0.8962434230888559,"cardname": "brine shaman"},
+{"deviation":0.8954578561572608,"cardname": "thermal navigator"}
 ]}

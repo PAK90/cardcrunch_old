@@ -5,7 +5,7 @@ import RunOnServer from './RunOnServer';
 require('./style.scss');
 
 // This used to be 'json!.data/allCards.json' until I put it in webpack.config.js. Confusing stuff...
-var cards = require('./data/allCards.json');
+var cards = require('./data/allCardsMod.json');
 
 // 'cards' is an object full of objects, so instead turn it into an array.
 // Works by creating a new property called 'cardName' in the object, attaching the rest of the object with && and returning the lot into a new var.
@@ -17,7 +17,7 @@ var cardArray = Object.keys(cards).map(function(cardName) {
 // Just go in and create a new key, and replace each object's key with the new key.
 for (var key in cards) {
     var keyLower = key.toLowerCase();
-    var keyLowerDash = keyLower.replace("-", "~").replace("æ","ae").replace('û','u').replace('!','');
+    var keyLowerDash = keyLower.replace("-", "~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u');
     if (keyLowerDash !== key) {
         var temp = cards[key];
         delete cards[key];

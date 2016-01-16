@@ -11,8 +11,8 @@ var RunOnServer = React.createClass({
 		    dataType: 'text',
 		    cache: false,
 		    // The card names are stored in the python script sources in lowercase and with ~ instead of -.
-		    data: {card1: this.props.card1.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!',''),
-		     	   card2: this.props.card2.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','')},
+		    data: {card1: this.props.card1.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u'),
+		     	   card2: this.props.card2.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u')},
 		    success: function(data) {
 		        this.setState({data: data});
 		    }.bind(this),
@@ -43,9 +43,9 @@ var RunOnServer = React.createClass({
 	    	return <div>
 	        	<Button label="Combine Cards" disabled={!this.props.combineReady} onClick={this.handleClick} accent primary raised />
 	        	<br />
-	        	<ul id="results"> 
+	        	<ul > 
 	                { JSON.parse(this.state.data).resultCards.map(function(card){
-	                    return <li><img src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/> {card.deviation}</li>;                     
+	                    return <li id="results">{card.deviation} <img src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/></li>;                     
 	                }) }
 	            </ul>
 	        </div>;
