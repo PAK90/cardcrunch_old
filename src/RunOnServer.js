@@ -27,6 +27,7 @@ var RunOnServer = React.createClass({
     },
   	render: function() {
   		var cardObject = this.props.items;
+
   		if (this.state.data == "Processing..." || this.state.data.length == 0) {
 	        return <div>
 	        	<Button label="Combine Cards" disabled={!this.props.combineReady} onClick={this.handleClick} accent primary raised />
@@ -43,11 +44,13 @@ var RunOnServer = React.createClass({
 	    	return <div>
 	        	<Button label="Combine Cards" disabled={!this.props.combineReady} onClick={this.handleClick} accent primary raised />
 	        	<br />
-	        	<ul > 
-	                { JSON.parse(this.state.data).resultCards.map(function(card){
-	                    return <li id="results">{card.deviation} <img src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/></li>;                     
-	                }) }
-	            </ul>
+	        	<table><tbody>
+		        	<tr> 
+		                { JSON.parse(this.state.data).resultCards.map(function(card){
+		                    return <td>{Math.round(card.deviation * 10000)/10000} <img src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/></td>;                     
+		                }) }
+		            </tr>
+		        </tbody></table>
 	        </div>;
 	    }
     }

@@ -39,23 +39,19 @@ var Parent = React.createClass({
         this.setState({combineReady: state});
     },
     render: function() {
-        return (<table>
+        return (<div><table>
         <tbody>
             <tr>
-                <td><CardSearch 
+                <td>
+                <CardSearch 
                     items={ cardArray } 
                     placeholder="Card 1 here" 
                     card={this.state.card1} 
                     updateCard={this.updateCard1} 
                     updateCombineState={this.updateCombineState}/>
                 </td>
-                <td><RunOnServer 
-                    url="py/comparecards" 
-                    card1={this.state.card1} 
-                    card2={this.state.card2} 
-                    combineReady={this.state.combineReady}
-                    items={ cards }/></td>
-                <td><CardSearch 
+                <td>
+                <CardSearch 
                     items={ cardArray } 
                     placeholder="Card 2 here" 
                     card={this.state.card2} 
@@ -64,7 +60,20 @@ var Parent = React.createClass({
                 </td>
             </tr>
         </tbody>
-        </table>);
+        </table>
+        <table><tbody>        
+            <tr>
+                <td colSpan="2">
+                <RunOnServer 
+                    url="py/comparecards" 
+                    card1={this.state.card1} 
+                    card2={this.state.card2} 
+                    combineReady={this.state.combineReady}
+                    items={ cards }/>
+                </td>
+            </tr>
+        </tbody></table></div>
+        );
     }
 });
 

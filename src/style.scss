@@ -59,7 +59,7 @@ ul{
 /* The individual list items. */
 ul li{
     display: block;
-    padding: 15px 20px;
+    padding: 10px 15px;
     background-color: #F8F8F8;
     color: #7B8585;
     margin-bottom: 3px;
@@ -68,42 +68,89 @@ ul li{
     transition: 0.3s;
 }
 
-/* The card images within the list items. */
-ul li img{
+tr td img{
+
+    /*-moz-animation-name: rotateCard;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: ease-in;
+    -moz-animation-duration: 1s;
+
+    -webkit-animation-name: rotateCard;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease-in;
+    -webkit-animation-duration: 1s;
+
+    animation-name: rotateCard;
+    animation-iteration-count: 1;
+    animation-timing-function: ease-in;
+    animation-duration: 1s;*/
+}
+
+/* The card images within the table items within the table items. */
+tr td tr td img{
     /*height: 200px;*/
-    transform: scale(0.6, 0.6);
+    /*transform: scale(0.6, 0.6);
     -ms-transform: scale(0.6, 0.6);
-    -webkit-transform: scale(0.6, 0.6);
+    -webkit-transform: scale(0.6, 0.6);*/
     align: top;
     padding: 3px;
     transition: 0.3s;
+
+    /*height: 160px;*/
 }
 
 /* Those images when hovered over. */
-ul li img:hover{
-    /*height: 311px*/
+/*tr td tr td img:hover{
+    /*height: 311px
+    transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
+}*/
+
+tr td tr td{       
+    background-color: #7B8585;
+    color: #F8F8F8;
+
+    transform: scale(0.6, 0.6);
+    -ms-transform: scale(0.6, 0.6);
+    -webkit-transform: scale(0.6, 0.6);
+    overflow: visible;
+    transition: 0.3s;
+    border-radius: 5px;
+    margin-right: -50px !important;
+}
+
+/* The individual table items (card combine results) when hovered over. */
+tr td tr td:hover{
+    color: #7b8585;
+    background-color:#d8f2f1;
     transform: scale(1, 1);
     -ms-transform: scale(1, 1);
     -webkit-transform: scale(1, 1);
 }
 
-ul li a{
-    position: absolute;
-    left: 160px;
-    font-size: 12px;
-    line-height: 16px;
-    color: #969d9d;
-}
 
-/* The individual list items when hovered over. */
-ul li:hover{
-    background-color:#d8f2f1;
+@-moz-keyframes rotateCard {
+    0% {
+        -moz-transform: rotateY(90);
+    }
+    100% {
+        -moz-transform: rotateY(0);
+    }
 }
-
-#result#result{
-    display: inline !important; 
-    background-color: #7B8585 !important;
-    color: #F8F8F8 !important;
-    height: 200px !important;
-    overflow: visible !important;
+@-webkit-keyframes rotateCard {
+    0% {
+        -webkit-transform: rotateY(90);
+    }
+    100% {
+        -webkit-transform: rotateY(0);
+    }
+}
+@keyframes rotateCard {
+    0% {
+        transform: rotateY(90);
+    }
+    100% {
+        transform: rotateY(0);
+    }
 }
