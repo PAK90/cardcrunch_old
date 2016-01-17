@@ -12,9 +12,9 @@ var WeightScale = React.createClass({
 
 	render: function() {
 		var inline = {
-			display: 'block-inline'
+			display: 'inline-block'
 		};
-		
+
 		return <div style={inline}>
 			<span>{Math.round((1-this.state.scale)*10)/10}</span>
 			<input type="range" min={0} max={1} step={0.1} value={this.state.scale} onChange={this.onSliderChange}/>

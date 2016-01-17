@@ -119,25 +119,25 @@ tr td tr td img{
 tr td tr td{       
     background-color: #7B8585;
     color: #F8F8F8;
-
-    transform: scale(0.6, 0.6);
-    -ms-transform: scale(0.6, 0.6);
-    -webkit-transform: scale(0.6, 0.6);
+    position: relative;
+    transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);
     overflow: visible;
     transition: 0.3s;
-    border-radius: 5px;
-    margin-right: -50px !important;
+    border-radius: 10px;
+    z-index: auto;
 }
 
 /* The individual table items (card combine results) when hovered over. */
 tr td tr td:hover{
     color: #7b8585;
     background-color:#d8f2f1;
-    transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -webkit-transform: scale(1, 1);
+    transform: scale(2, 2);
+    -ms-transform: scale(2, 2);
+    -webkit-transform: scale(2, 2);
+    z-index: 99 !important;
 }
-
 
 @-moz-keyframes rotateCard {
     0% {
