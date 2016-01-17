@@ -17,6 +17,10 @@ var CardSearch = React.createClass({
         this.setState({lineSelected:false}, this.props.updateCombineState(false));
     },
 
+    handleSliderChange: function(e) {
+        this.setState({slider: e.target.valueAsNumber}, this.props.updateSlider(e.target.valueAsNumber));
+    },
+
     handleListClick: function(e) {
         // If the list was clicked, use first child's text.
         if(e.target !== undefined) {

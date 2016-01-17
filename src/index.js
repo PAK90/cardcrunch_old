@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CardSearch from './CardSearch';
 import RunOnServer from './RunOnServer';
+import WeightScale from './WeightScale';
 require('./style.scss');
 
 // This used to be 'json!.data/allCards.json' until I put it in webpack.config.js. Confusing stuff...
@@ -35,6 +36,9 @@ var Parent = React.createClass({
     updateCard2: function(card){
         this.setState({card2: card});
     },
+    updateSlider: function(value){
+        this.setState({slider: value});
+    },
     updateCombineState: function(state){
         this.setState({combineReady: state});
     },
@@ -59,6 +63,11 @@ var Parent = React.createClass({
                     updateCombineState={this.updateCombineState}/>
                 </td>
             </tr>
+            <tr>
+                <td colSpan = "2">
+                    <WeightScale updateSlider={this.updateSlider}/>
+                </td>
+            </tr>
         </tbody>
         </table>
         <table><tbody>        
@@ -68,6 +77,7 @@ var Parent = React.createClass({
                     url="py/comparecards" 
                     card1={this.state.card1} 
                     card2={this.state.card2} 
+                    sliderValue={this.state.slider}
                     combineReady={this.state.combineReady}
                     items={ cards }/>
                 </td>

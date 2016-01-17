@@ -24,7 +24,10 @@ body{
 #random {
     font-size: 24px;
     background-color: #dddddd;
-    align: center;
+}
+
+.WeightScale{
+    display: block;
 }
 
 /* The search fields. */
@@ -40,6 +43,12 @@ input[type=text]{
     display: block;
     color: #7B8585;
     margin: 0 auto 20px;
+}
+
+input[type=range]{
+    padding: 5px 5px;
+    width: 263px;
+    display: inline-block;
 }
 
 /* The table objects (cardSearch, combineCards, cardSearch). */
