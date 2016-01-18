@@ -18,7 +18,7 @@ var cardArray = Object.keys(cards).map(function(cardName) {
 // Just go in and create a new key, and replace each object's key with the new key.
 for (var key in cards) {
     var keyLower = key.toLowerCase();
-    var keyLowerDash = keyLower.replace("-", "~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u');
+    var keyLowerDash = keyLower.replace("-", "~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a');
     if (keyLowerDash !== key) {
         var temp = cards[key];
         delete cards[key];
@@ -28,7 +28,7 @@ for (var key in cards) {
 
 var Parent = React.createClass({
     getInitialState: function(){
-        return {card1: "", card2: ""};
+        return {card1: "", card2: "", slider: 0.5};
     },
     updateCard1: function(card){
         this.setState({card1: card});

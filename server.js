@@ -13,7 +13,7 @@ new WebpackDevServer(webpack(config), {
       secure: false,
       bypass: function(req, res, proxyOptions) {
         var spawn = require('child_process').spawnSync;
-        var process = spawn('cmd.exe', ['/c', 'py\\comparecards.bat', req.query.card1, req.query.card2]);
+        var process = spawn('cmd.exe', ['/c', 'py\\comparecards.bat', req.query.card1, req.query.card2, req.query.slider]);
         return '/py/results.txt';
         /*var spawn = require('child_process').spawn;
         var process = spawn('py', ['/src/script/magicvector.py', "copper myr", "dread warlock"]);

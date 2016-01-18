@@ -165,8 +165,9 @@ vecdata = getOriginalCardVectors()
 table = getCardTable()
 str1 = table[str(sys.argv[1])]
 str2 = table[str(sys.argv[2])]
-#pool.map(combineCards(vecdata,str1,str2));
-combineCards(vecdata,str1,str2);
+scaleB = float(sys.argv[3])
+scaleA = 1 - scaleB
+combineCards(vecdata,str1,str2,scaleA,scaleB);
 
 
 

@@ -109,20 +109,23 @@ tr td tr td img{
 }
 
 /* Those images when hovered over. */
-/*tr td tr td img:hover{
-    /*height: 311px
-    transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -webkit-transform: scale(1, 1);
-}*/
+tr td tr td img:hover{
+    /*height: 311px*/
+    
+    /*transform: scale(2, 2);
+    -ms-transform: scale(2, 2);
+    -webkit-transform: scale(2, 2);*/
+}
 
 tr td tr td{       
     background-color: #7B8585;
     color: #F8F8F8;
     position: relative;
-    transform: scale(1, 1);
+    width: 117.5px;
+    height: 170.5px;
+    /*transform: scale(1, 1);
     -ms-transform: scale(1, 1);
-    -webkit-transform: scale(1, 1);
+    -webkit-transform: scale(1, 1);*/
     overflow: visible;
     transition: 0.3s;
     border-radius: 10px;
@@ -133,10 +136,6 @@ tr td tr td{
 tr td tr td:hover{
     color: #7b8585;
     background-color:#d8f2f1;
-    transform: scale(2, 2);
-    -ms-transform: scale(2, 2);
-    -webkit-transform: scale(2, 2);
-    z-index: 99 !important;
 }
 
 @-moz-keyframes rotateCard {
