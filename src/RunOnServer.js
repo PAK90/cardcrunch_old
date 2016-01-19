@@ -1,6 +1,9 @@
 import React from 'react';
 import Button from 'react-toolbox/lib/button';
 
+var VelocityTransitionGroup = require('velocity-react/velocity-transition-group.js');
+var VelocityComponent = require('velocity-react/velocity-component.js');
+
 var RunOnServer = React.createClass({
 	getInitialState: function() {
 	    return {data: [], hoveredId: ' '};
@@ -85,6 +88,7 @@ var RunOnServer = React.createClass({
 	        	<Button label="Combine Cards" disabled={!this.props.combineReady} onClick={this.handleClick} accent primary raised />
 	        	<table><tbody>
 		        	<tr> 
+		        	<VelocityTransitionGroup enter={{animation: "slideDown"}} leave={{animation: "slideUp"}} duration={100} stagger={100}>
 		                { cardArray.resultCards.map(function(card){
 		                	if (card.hovered) {
 			                    return <td>{Math.round(card.deviation * 10000)/10000} 
@@ -102,6 +106,7 @@ var RunOnServer = React.createClass({
 			                    </td>;
 		                    }   
 		                }.bind(this)) }
+					</VelocityTransitionGroup>
 		            </tr>
 		        </tbody></table>
 	        </div>;

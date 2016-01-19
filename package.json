@@ -41,6 +41,7 @@
     "react-dom": "^0.14.3",
     "react-toolbox": "^0.14.0",
     "request": "^2.65.0",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "velocity-react": "^1.1.1"
   }
 }

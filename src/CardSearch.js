@@ -2,6 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from 'react-toolbox/lib/button';
 
+var VelocityTransitionGroup = require('velocity-react/velocity-transition-group.js');
+var VelocityComponent = require('velocity-react/velocity-component.js');
+
 var CardSearch = React.createClass({
     getInitialState: function() {
         return { searchString: '' };
@@ -68,22 +71,41 @@ var CardSearch = React.createClass({
             	return 0;
             });
 
+            // Replace the mana cost string with a bunch of image tags.
+            for (var i = 0; i < cardCollection.length; i++) {
+                if (cardCollection[i].manaCost !== undefined) {
+                    cardCollection[i].manaCost = cardCollection[i].manaCost.replace(/\//g,''); // Get rid of / in any costs first.
+                    cardCollection[i].tagCost = cardCollection[i].manaCost
+                    .match(/\{([0-z]+)\}/g)
+                    .map(function (basename, i) {
+                        var src = './src/data/img/' + basename.substring(1, basename.length - 1) + '.png';
+                        return <img key={i} src={src} height='15px'/>;
+                    });
+                }
+            }
+
+            var animationEnter = {
+                duration: 200,
+                animation: {rotateX: 0},
+                stagger: 500
+            };
+            var animationLeave = {
+                duration: 200,
+                animation: {rotateX: 90},
+                stagger: 500
+            };
+
             // Still searching, so return the search box and all the remaining filtered cards.
             return <div>
 	            <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder={placeholderString} />
                 <Button type="button" className="random" accent primary raised onClick={this.handleRandomButtonClick}>Random Card</Button>
                 <br />
 	            <ul onClick={this.handleListClick}> 
-	                { cardCollection.map(function(card){
-	                    //return [<li><p>{card.name}</p><p id="manacost">{card.manaCost.replace(/\W/g, '')}</p></li>]; 
-	                    if (card.manaCost != undefined) {
-	                    	return <li key={card.name}>{card.name} {card.manaCost.replace(/\W/g, '')}</li>; 
-                            // Regex magic to remove non-alphanumerical values.
-	                    }
-	                    else {
-	                    	return <li key={card.name}>{card.name}</li>;
-	                    }
-	                }) }
+                    <VelocityTransitionGroup enter={animationEnter} leave={animationLeave}>                            
+    	                { cardCollection.map(function(card, i){
+    	                    return <li key={i}>{card.name} {card.tagCost}</li>;
+    	                }) }
+                    </VelocityTransitionGroup>
 	            </ul>
 	        </div>;
         }
@@ -99,45 +121,45 @@ var CardSearch = React.createClass({
             var borderColour1, borderColour2;
             var gradient = false;
             if (cardCollection.length == 1) {
-                if (cardCollection[0].colorIdentity !== undefined) {
-                    if (cardCollection[0].colorIdentity.length <= 2) { // Monocoloured cards. Also encode the first colour of dual-coloured cards.
-                        var colourCode = cardCollection[0].colorIdentity[0];
+                if (cardCollection[0].colors !== undefined) {
+                    if (cardCollection[0].colors.length <= 2) { // Monocoloured cards. Also encode the first colour of dual-coloured cards.
+                        var colourCode = cardCollection[0].colors[0];
                         switch (colourCode) {
-                            case 'W':
+                            case 'White':
                                 borderColour1 = "#f8f9f4";
                                 break;
-                            case 'U':
+                            case 'Blue':
                                 borderColour1 = "#0083c5";
                                 break;
-                            case 'R':
+                            case 'Red':
                                 borderColour1 = "#ec4b26";
                                 break;
-                            case 'B':
+                            case 'Black':
                                 borderColour1 = "#2b281f";
                                 break;
-                            case 'G':
+                            case 'Green':
                                 borderColour1 = "#008045";
                                 break;
                         }
 
-                        if (cardCollection[0].colorIdentity.length == 2) { // Gold-but-coloured cards. Encode the second colour.
+                        if (cardCollection[0].colors.length == 2) { // Gold-but-coloured cards. Encode the second colour.
                             //gradient!
                             gradient = true;
-                            var colourCode = cardCollection[0].colorIdentity[1];
+                            var colourCode = cardCollection[0].colors[1];
                             switch (colourCode) {
-                                case 'W':
+                                case 'White':
                                     borderColour2 = "#f8f9f4";
                                     break;
-                                case 'U':
+                                case 'Blue':
                                     borderColour2 = "#0083c5";
                                     break;
-                                case 'R':
+                                case 'Red':
                                     borderColour2 = "#ec4b26";
                                     break;
-                                case 'B':
+                                case 'Black':
                                     borderColour2 = "#2b281f";
                                     break;
-                                case 'G':
+                                case 'Green':
                                     borderColour2 = "#008045";
                                     break;
                             }
@@ -172,11 +194,11 @@ var CardSearch = React.createClass({
         		<input type="text" style={borderStyle} value={this.state.searchString} onChange={this.handleChange} placeholder={placeholderString} />
         		<Button type="button" id="random" accent primary raised onClick={this.handleRandomButtonClick}>Random Card</Button>
                 <br />
-        		{ cardCollection.map(function(card){
+        		{ cardCollection.map(function(card, i){
         			// Only return an image if there's only one image (the search result) to return.
         			// If not, don't return this and there will only be the search box.
         			if (cardCollection.length == 1) {
-                    	return <img src={'https://image.deckbrew.com/mtg/multiverseid/'+card.multiverseids[card.multiverseids.length-1].multiverseid+'.jpg'}/>
+                    	return <img key={i} src={'https://image.deckbrew.com/mtg/multiverseid/'+card.multiverseids[card.multiverseids.length-1].multiverseid+'.jpg'}/>
                     }
                 }) }
         	</div>

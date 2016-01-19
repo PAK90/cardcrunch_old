@@ -4,6 +4,8 @@ import CardSearch from './CardSearch';
 import RunOnServer from './RunOnServer';
 import WeightScale from './WeightScale';
 require('./style.scss');
+require('velocity-animate');
+require('velocity-animate/velocity.ui');
 
 // This used to be 'json!.data/allCards.json' until I put it in webpack.config.js. Confusing stuff...
 var cards = require('./data/allCardsMod.json');
