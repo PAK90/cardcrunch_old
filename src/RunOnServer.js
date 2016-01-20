@@ -45,10 +45,23 @@ var RunOnServer = React.createClass({
 
   		// Half the normal size of a card, on both axes.
   		var squeeze = {
+				display: 'block',
   			width: '115px',
    			height: '158px',
     		borderRadius: '8px' // Cuts off the white corners.
   		};
+
+			var elemInline = {
+				display: 'inline'
+			};
+
+			var elemInlineBlock = {
+				display: 'inline-block'
+			};
+
+			var elemBlock = {
+				display: 'block'
+			};
 
   		// Pre-parse the card array that the python script returns. Ensure it only tries to parse when there's no error.
   		var cardArray;
@@ -87,29 +100,29 @@ var RunOnServer = React.createClass({
 	    else if (this.state.data.length !== 0) {
 	    	return <div >
 	        	<Button label="Combine Cards" disabled={!this.props.combineReady} onClick={this.handleClick} accent primary raised />
-	        	<table><tbody>
-		        	<tr> 
 		        	<VelocityTransitionGroup enter={{animation: "slideDown"}} leave={{animation: "slideUp"}} duration={100} stagger={100}>
+ 								<div style={elemBlock}>
+ 							  	<div style={elemInline}>
 		                { cardArray.resultCards.map(function(card){
 		                	if (card.hovered) {
-			                    return <td>{Math.round(card.deviation * 10000)/10000}
-			                    	<img onMouseOver={this.handleHover.bind(this,card.cardname)}
+			                    return <div style={elemInlineBlock}>{Math.round(card.deviation * 10000)/10000}
+			                    	<img style={elemBlock} onMouseOver={this.handleHover.bind(this,card.cardname)}
 			                    	onMouseOut={this.handleHover.bind(this, '')}
 			                    	src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/>
-			                    </td>;
+			                    </div>;
 		                    }
 		                    else {
-			                    return <td>{Math.round(card.deviation * 10000)/10000}
-			                    	<img style={squeeze} 
+			                    return <div style={elemInlineBlock}>{Math.round(card.deviation * 10000)/10000}
+			                    	<img style={squeeze}
 			                    	onMouseOver={this.handleHover.bind(this,card.cardname)}
 			                    	onMouseOut={this.handleHover.bind(this, '')}
 			                    	src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/>
-			                    </td>;
-		                    }   
+			                    </div>;
+		                    }
 		                }.bind(this)) }
-					</VelocityTransitionGroup>
-		            </tr>
-		        </tbody></table>
+								</div>
+							</div>
+					  </VelocityTransitionGroup>
 	        </div>;
 	    }
     }
