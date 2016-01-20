@@ -46,7 +46,8 @@ var RunOnServer = React.createClass({
   		// Half the normal size of a card, on both axes.
   		var squeeze = {
   			width: '115px',
-   			height: '158px'
+   			height: '158px',
+    		borderRadius: '8px' // Cuts off the white corners.
   		};
 
   		// Pre-parse the card array that the python script returns. Ensure it only tries to parse when there's no error.
@@ -91,14 +92,14 @@ var RunOnServer = React.createClass({
 		        	<VelocityTransitionGroup enter={{animation: "slideDown"}} leave={{animation: "slideUp"}} duration={100} stagger={100}>
 		                { cardArray.resultCards.map(function(card){
 		                	if (card.hovered) {
-			                    return <td>{Math.round(card.deviation * 10000)/10000} 
+			                    return <td>{Math.round(card.deviation * 10000)/10000}
 			                    	<img onMouseOver={this.handleHover.bind(this,card.cardname)}
 			                    	onMouseOut={this.handleHover.bind(this, '')}
 			                    	src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/>
 			                    </td>;
 		                    }
 		                    else {
-			                    return <td>{Math.round(card.deviation * 10000)/10000} 
+			                    return <td>{Math.round(card.deviation * 10000)/10000}
 			                    	<img style={squeeze} 
 			                    	onMouseOver={this.handleHover.bind(this,card.cardname)}
 			                    	onMouseOut={this.handleHover.bind(this, '')}

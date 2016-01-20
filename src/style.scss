@@ -19,6 +19,7 @@ html{
 body{
     padding:30px;
     text-align: center;
+    background-image: url(/src/data/img/Gray_Patterned_BG.jpg);
 }
 
 #random {
@@ -37,11 +38,12 @@ input[type=text]{
     border: 6px solid $border-colour;
     padding: 5px 5px;
     font-size: 15px;
-    box-shadow: 0 1px 1px #DDD;
+    /*box-shadow: 0 1px 1px #DDD;*/
     width: 263px;
     outline: none;
     display: block;
-    color: #7B8585;
+    color: #f4f4f4;
+    background-color: rgba(#7B8585, 0.3);
     margin: 0 auto 20px;
 }
 
@@ -49,6 +51,39 @@ input[type=range]{
     padding: 5px 5px;
     width: 263px;
     display: inline-block;
+    background-color: transparent;
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: transparent;
+  border-color: transparent;
+  border-width: 16px 0;
+  color: transparent;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #2196f3;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  background: #2196f3;
+  border-radius: 1.3px;
+  border: 0.2px solid #010101;
+}
+
+tr td div img{
+    border-radius: 13px;
 }
 
 /* The table objects (cardSearch, combineCards, cardSearch). */
@@ -69,12 +104,18 @@ ul{
 ul li{
     display: block;
     padding: 10px 15px;
-    background-color: #F8F8F8;
-    color: #7B8585;
+    background-color: rgba(#7B8585, 0.5);
+    color: #F8F8F8;
     margin-bottom: 3px;
     position: relative;
     
     transition: 0.3s;
+}
+
+/* List items when hovered. */
+ul li:hover{
+    background-color: #F8F8F8;
+    color: #7B8585;
 }
 
 tr td img{
@@ -97,40 +138,33 @@ tr td img{
 
 /* The card images within the table items within the table items. */
 tr td tr td img{
-    /*height: 200px;*/
-    /*transform: scale(0.6, 0.6);
-    -ms-transform: scale(0.6, 0.6);
-    -webkit-transform: scale(0.6, 0.6);*/
     align: top;
     padding: 3px;
-    transition: 0.3s;
-
-    /*height: 160px;*/
 }
 
 /* Those images when hovered over. */
 tr td tr td img:hover{
-    /*height: 311px*/
-    
-    /*transform: scale(2, 2);
-    -ms-transform: scale(2, 2);
-    -webkit-transform: scale(2, 2);*/
+    border-radius: 13px; /* Cuts off any white corners. */
 }
 
 tr td tr td{       
-    background-color: #7B8585;
-    color: #F8F8F8;
     position: relative;
     width: 117.5px;
     height: 170.5px;
-    /*transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -webkit-transform: scale(1, 1);*/
-    overflow: visible;
     transition: 0.3s;
     border-radius: 10px;
-    z-index: auto;
+    background-color: #7B8585;
+    color: #F8F8F8;
 }
+
+/* The deviation box. */
+/*tr td tr td p{
+    font-size: 12px;
+    background-color: #7B8585;
+    color: #F8F8F8;
+    border-radius: 10px;
+    transition: 0.3s;
+}*/
 
 /* The individual table items (card combine results) when hovered over. */
 tr td tr td:hover{
