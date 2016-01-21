@@ -4,6 +4,43 @@ import Button from 'react-toolbox/lib/button';
 
 var VelocityTransitionGroup = require('velocity-react/velocity-transition-group.js');
 var VelocityComponent = require('velocity-react/velocity-component.js');
+var VelocityHelpers = require('velocity-react/velocity-helpers.js');
+require('velocity-animate');
+require('velocity-animate/velocity.ui');
+
+// Register animations here so that 'stagger' property can be used with them.
+var Animations = {
+    In: VelocityHelpers.registerEffect({
+        calls: [
+            [{
+                transformPerspective: [ 800, 800 ],
+                transformOriginX: [ '50%', '50%' ],
+                transformOriginY: [ '100%', '100%' ],
+                marginBottom: 1,
+                opacity: 1,
+                rotateX: [0, 130],
+            }, 1, {
+                easing: 'ease-out',
+                display: 'block',
+            }]
+        ],
+    }),
+    Out: VelocityHelpers.registerEffect({
+        calls: [
+            [{
+                transformPerspective: [ 800, 800 ],
+                transformOriginX: [ '50%', '50%' ],
+                transformOriginY: [ '0%', '0%' ],
+                marginBottom: -30,
+                opacity: 0,
+                rotateX: [-70],
+            }, 1, {
+                easing: 'ease-out',
+                display: 'block',
+            }]
+        ],
+    })
+};
 
 var CardSearch = React.createClass({
     getInitialState: function() {
@@ -18,6 +55,22 @@ var CardSearch = React.createClass({
 
         this.setState({searchString:e.target.value});
         this.setState({lineSelected:false}, this.props.updateCombineState(false));
+    },
+
+    handleKeyUp: function(e) {
+        console.log(e);
+        // Keypresses are only relevant when there's a search string and a card isn't selected.
+        if (this.state.searchString.length !== 0 && this.state.lineSelected == false) {
+            if (e.key == "ArrowUp") {
+
+            }
+            else if (e.key == "ArrowDown") {
+
+            }
+            else if (e.key == "Enter") {
+
+            }
+        }
     },
 
     handleListClick: function(e) {
@@ -85,19 +138,20 @@ var CardSearch = React.createClass({
             }
 
             var animationEnter = {
-                duration: 200,
-                animation: {rotateX: 0},
-                stagger: 500
+                duration: 100,
+                animation: Animations.In,
+                stagger: 50
             };
             var animationLeave = {
-                duration: 200,
-                animation: {rotateX: 90},
-                stagger: 500
+                duration: 100,
+                animation: Animations.Out,
+                stagger: 50,
+                backwards: true
             };
 
             // Still searching, so return the search box and all the remaining filtered cards.
             return <div>
-	            <input type="text" value={this.state.searchString} onChange={this.handleChange} placeholder={placeholderString} />
+	            <input type="text" value={this.state.searchString} onChange={this.handleChange} onKeyDown={this.handleKeyUp} placeholder={placeholderString} />
                 <Button type="button" className="random" accent primary raised onClick={this.handleRandomButtonClick}>Random Card</Button>
                 <br />
 	            <ul onClick={this.handleListClick}> 
@@ -120,6 +174,8 @@ var CardSearch = React.createClass({
             // Colour identity colours!
             var borderColour1, borderColour2;
             var gradient = false;
+            var isSimic = 0; // These two are needed because WR and UG colour pairs appear out of order, for some reason.
+            var isBoros = 0; // So if a pair is one of these, the colours need to be flipped.
             if (cardCollection.length == 1) {
                 if (cardCollection[0].colors !== undefined) {
                     if (cardCollection[0].colors.length <= 2) { // Monocoloured cards. Also encode the first colour of dual-coloured cards.
@@ -127,9 +183,11 @@ var CardSearch = React.createClass({
                         switch (colourCode) {
                             case 'White':
                                 borderColour1 = "#f8f9f4";
+                                isBoros = 1;
                                 break;
                             case 'Blue':
                                 borderColour1 = "#0083c5";
+                                isSimic = 1;
                                 break;
                             case 'Red':
                                 borderColour1 = "#ec4b26";
@@ -143,7 +201,6 @@ var CardSearch = React.createClass({
                         }
 
                         if (cardCollection[0].colors.length == 2) { // Gold-but-coloured cards. Encode the second colour.
-                            //gradient!
                             gradient = true;
                             var colourCode = cardCollection[0].colors[1];
                             switch (colourCode) {
@@ -155,13 +212,25 @@ var CardSearch = React.createClass({
                                     break;
                                 case 'Red':
                                     borderColour2 = "#ec4b26";
+                                    isBoros++;
                                     break;
                                 case 'Black':
                                     borderColour2 = "#2b281f";
                                     break;
                                 case 'Green':
                                     borderColour2 = "#008045";
+                                    isSimic++;
                                     break;
+                            }
+                            
+                            // Explicitly set Simic/Boros colours.
+                            if (isBoros == 2) {
+                                borderColour1 = "#ec4b26";
+                                borderColour2 = "#f8f9f4";
+                            }
+                            if (isSimic == 2) {
+                                borderColour1 = "#008045";
+                                borderColour2 = "#0083c5";
                             }
                         }
                     }

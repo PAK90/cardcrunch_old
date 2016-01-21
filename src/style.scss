@@ -136,42 +136,6 @@ tr td img{
     animation-duration: 1s;*/
 }
 
-/* The card images within the table items within the table items. */
-tr td tr td img{
-    align: top;
-    padding: 3px;
-}
-
-/* Those images when hovered over. */
-tr td tr td img:hover{
-    border-radius: 13px; /* Cuts off any white corners. */
-}
-
-tr td tr td{       
-    position: relative;
-    width: 117.5px;
-    height: 170.5px;
-    transition: 0.3s;
-    border-radius: 10px;
-    background-color: #7B8585;
-    color: #F8F8F8;
-}
-
-/* The deviation box. */
-/*tr td tr td p{
-    font-size: 12px;
-    background-color: #7B8585;
-    color: #F8F8F8;
-    border-radius: 10px;
-    transition: 0.3s;
-}*/
-
-/* The individual table items (card combine results) when hovered over. */
-tr td tr td:hover{
-    color: #7b8585;
-    background-color:#d8f2f1;
-}
-
 @-moz-keyframes rotateCard {
     0% {
         -moz-transform: rotateY(90);

@@ -4,8 +4,6 @@ import CardSearch from './CardSearch';
 import RunOnServer from './RunOnServer';
 import WeightScale from './WeightScale';
 require('./style.scss');
-require('velocity-animate');
-require('velocity-animate/velocity.ui');
 
 // This used to be 'json!.data/allCards.json' until I put it in webpack.config.js. Confusing stuff...
 var cards = require('./data/allCardsMod.json');
@@ -30,7 +28,7 @@ for (var key in cards) {
 
 var Parent = React.createClass({
     getInitialState: function(){
-        return {card1: "", card2: "", slider: 0.5};
+        return {card1: "", card2: "", slider: 0.5, combine1Ready: false, combine2Ready: false};
     },
     updateCard1: function(card){
         this.setState({card1: card});
@@ -41,8 +39,11 @@ var Parent = React.createClass({
     updateSlider: function(value){
         this.setState({slider: value});
     },
-    updateCombineState: function(state){
-        this.setState({combineReady: state});
+    updateCombineState1: function(state){
+        this.setState({combine1Ready: state});
+    },
+    updateCombineState2: function(state){
+        this.setState({combine2Ready: state});
     },
     render: function() {
         return (<div><table>
@@ -54,7 +55,7 @@ var Parent = React.createClass({
                     placeholder="Card 1 here" 
                     card={this.state.card1} 
                     updateCard={this.updateCard1} 
-                    updateCombineState={this.updateCombineState}/>
+                    updateCombineState={this.updateCombineState1}/>
                 </td>
                 <td>
                 <CardSearch 
@@ -62,7 +63,7 @@ var Parent = React.createClass({
                     placeholder="Card 2 here" 
                     card={this.state.card2} 
                     updateCard={this.updateCard2} 
-                    updateCombineState={this.updateCombineState}/>
+                    updateCombineState={this.updateCombineState2}/>
                 </td>
             </tr>
             <tr>
@@ -80,7 +81,8 @@ var Parent = React.createClass({
                     card1={this.state.card1} 
                     card2={this.state.card2} 
                     sliderValue={this.state.slider}
-                    combineReady={this.state.combineReady}
+                    combine1Ready={this.state.combine1Ready}
+                    combine2Ready={this.state.combine2Ready}
                     items={ cards }/>
                 </td>
             </tr>
