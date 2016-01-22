@@ -13,16 +13,25 @@ var RunOnServer = React.createClass({
 	    return {data: [], hoveredId: ' ', imageLoaded: false};
 	},
 	handleHover: function(cardname) {
-		this.setState({hoveredId: cardname});
+		// Setting imageLoaded here because it makes the re-rendering of smaller card image at 1 opacity in the squeeze style.
+		this.setState({hoveredId: cardname, imageLoaded: true});
 	},
 	handleImgLoad: function(e) {
-		console.log(e);
-		//this.setState({imageLoaded: true});
+		var img = e.target;
+		// Needs the dollar sign for some reason.
+		$.Velocity(img, {rotateY: [0,90], opacity: [1,0]}, {duration: 750});
 	},
-    handleClick: function(event) {
+    handleClick: function(e) {
     	this.runOnServer();
     	// When clicked, run this. Should replace with a spinny circle at some point.
-    	this.setState({data: "Processing...", imageLoaded: false});
+    	this.setState({data: "Processing...", imageLoaded: false}, this.animateAway(e));    	
+    },
+    animateAway: function(e) {
+    	// Animate away existing cards.
+    	var cardDiv = e.target.nextElementSibling.nextElementSibling;
+    	if (this.state.data.includes("result")) {
+			//$.Velocity(cardDiv, {opacity: [0,1]}, {duration: 750});
+		}
     },
     runOnServer: function() {
 	    $.ajax({
@@ -30,8 +39,8 @@ var RunOnServer = React.createClass({
 		    dataType: 'text',
 		    cache: false,
 		    // The card names are stored in the python script sources in lowercase and with ~ instead of -, as well as many other letter replacements.
-		    data: {card1: this.props.card1.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a'),
-		     	   card2: this.props.card2.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a'),
+		    data: {card1: this.props.card1.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~"),
+		     	   card2: this.props.card2.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~"),
 		     	   slider: this.props.sliderValue},
 		    success: function(data) {
 		        this.setState({data: data});
@@ -55,7 +64,8 @@ var RunOnServer = React.createClass({
 			display: 'block',
   			width: '115px',
    			height: '158px',
-    		borderRadius: '8px' // Cuts off the white corners.
+    		borderRadius: '8px', // Cuts off the white corners.
+    		opacity: this.state.imageLoaded ? '1' : '0'
   		};
 
 		var elemInline = {
@@ -107,7 +117,12 @@ var RunOnServer = React.createClass({
 	        }.bind(this));
 		}
 
-		// If processing, return the button and the Processing text.
+		var text; 
+		if (this.state.data == "Processing..." || this.state.data.length == 0 || this.state.data.includes("Traceback")) {
+			text = this.state.data;
+		};
+
+		/*// If processing, return the button and the Processing text.
   		if (this.state.data == "Processing..." || this.state.data.length == 0) {
 	        return <div>
 	        	<Button label="Combine Cards" disabled={!(this.props.combine1Ready && this.props.combine2Ready)} onClick={this.handleClick} accent primary raised />
@@ -122,16 +137,17 @@ var RunOnServer = React.createClass({
 	        </div>;
 	    }
 	    // If not either of those, hopefully it's the results.
-	    else if (this.state.data.length !== 0) {
+	    else if (this.state.data.length !== 0) {*/
 	    	return <div >
 	        	<Button label="Combine Cards" disabled={!(this.props.combine1Ready && this.props.combine2Ready)} onClick={this.handleClick} accent primary raised />
+	        	<p>{text}</p>
 					<div style={elemBlock}>
 				  		<div style={elemInline}>
 	                		{ images }
 						</div>
 					</div>
 	        </div>;
-	    }
+	    //}
     }
 });
 

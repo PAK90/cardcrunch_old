@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import CardSearch from './CardSearch';
 import RunOnServer from './RunOnServer';
 import WeightScale from './WeightScale';
+import CosinePlot from './CosinePlot';
 require('./style.scss');
 
 // This used to be 'json!.data/allCards.json' until I put it in webpack.config.js. Confusing stuff...
@@ -18,7 +19,7 @@ var cardArray = Object.keys(cards).map(function(cardName) {
 // Just go in and create a new key, and replace each object's key with the new key.
 for (var key in cards) {
     var keyLower = key.toLowerCase();
-    var keyLowerDash = keyLower.replace("-", "~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a');
+    var keyLowerDash = keyLower.replace("-", "~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~");
     if (keyLowerDash !== key) {
         var temp = cards[key];
         delete cards[key];
