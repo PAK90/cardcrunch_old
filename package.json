@@ -38,6 +38,7 @@
     "normalize.css": "^3.0.3",
     "react": "^0.14.3",
     "react-addons-css-transition-group": "^0.14.3",
+    "react-d3-components": "^0.6.2",
     "react-dom": "^0.14.3",
     "react-toolbox": "^0.14.0",
     "request": "^2.65.0",
