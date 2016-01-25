@@ -66,6 +66,9 @@ var Parent = React.createClass({
                     updateCard={this.updateCard2} 
                     updateCombineState={this.updateCombineState2}/>
                 </td>
+                <td>
+                <CosinePlot items={cards}/>
+                </td>
             </tr>
             <tr>
                 <td colSpan = "2">
@@ -84,7 +87,7 @@ var Parent = React.createClass({
                     sliderValue={this.state.slider}
                     combine1Ready={this.state.combine1Ready}
                     combine2Ready={this.state.combine2Ready}
-                    items={ cards }/>
+                    items={cards}/>
                 </td>
             </tr>
         </tbody></table></div>
