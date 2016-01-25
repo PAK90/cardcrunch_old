@@ -39,8 +39,8 @@ var RunOnServer = React.createClass({
 		    dataType: 'text',
 		    cache: false,
 		    // The card names are stored in the python script sources in lowercase and with ~ instead of -, as well as many other letter replacements.
-		    data: {card1: this.props.card1.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~"),
-		     	   card2: this.props.card2.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~"),
+		    data: {card1: this.props.card1.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e"),
+		     	   card2: this.props.card2.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e"),
 		     	   slider: this.props.sliderValue},
 		    success: function(data) {
 		        this.setState({data: data});

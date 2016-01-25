@@ -13,6 +13,7 @@ chart: {
         panning: true,
         panKey: 'shift',
         height: 600,
+        animation: false,
         backgroundColor: null // Transparent.
     },
     title: {
@@ -23,6 +24,12 @@ chart: {
         text: 'Drag mouse to zoom. Hold shift to pan. Click colour to hide/show.',
         style: {"color": '#F8F8F8', 'fontSize': '10px'}
     },
+    xAxis: {
+	    visible: false
+	},
+    yAxis: {
+	    visible: false
+	},
     legend: {
         layout: 'vertical',
         align: 'left',
@@ -34,15 +41,13 @@ chart: {
         borderWidth: 1
     },
     tooltip: {
-        //headerFormat: '<b>{series.name}</b><br>',
-        //pointFormat: '{point.name}',
         useHTML: true,
         formatter: function() {
-        	var s = "<img src='https://image.deckbrew.com/mtg/multiverseid/"+cardsRaw[this.point.name].multiverseids[cardsRaw[this.point.name].multiverseids.length-1].multiverseid+".jpg' height='225'/>";
-        	return s;
-        	//return '<img src="https://image.deckbrew.com/mtg/multiverseid/123456.jpg" title="" alt="" border="0" height="250" width="220"/>';	                    	
+        	var s = "<img src='https://image.deckbrew.com/mtg/multiverseid/"+cardsRaw[this.point.name].multiverseids[cardsRaw[this.point.name].multiverseids.length-1].multiverseid+".jpg' height='275' width='200.4'/>";
+        	return s;                    	
         },
-        followPointer: false
+        followPointer: false,
+        style: {"width": '200px', 'lineColor': null, 'color': "rgba(255,255,255,0,5)"}
     },
     plotOptions: {
         scatter: {
