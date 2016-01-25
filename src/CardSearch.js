@@ -47,6 +47,12 @@ var CardSearch = React.createClass({
         return { searchString: '' };
     },
 
+    handleImgLoad: function(e) {
+        var img = e.target;
+        // Needs the dollar sign for some reason.
+        $.Velocity(img, {rotateY: [0,90], opacity: [1,0]}, {duration: 500});
+    },
+
     handleChange: function(e) {
 
         // If you comment out this line, the text box will not change its value.
@@ -258,6 +264,9 @@ var CardSearch = React.createClass({
                     'borderColor': borderColour1
                 };   
             }
+            var transparent = {
+                opacity: 0
+            }
 
         	return <div>
         		<input type="text" style={borderStyle} value={this.state.searchString} onChange={this.handleChange} placeholder={placeholderString} />
@@ -267,9 +276,12 @@ var CardSearch = React.createClass({
         			// Only return an image if there's only one image (the search result) to return.
         			// If not, don't return this and there will only be the search box.
         			if (cardCollection.length == 1) {
-                    	return <img key={i} src={'https://image.deckbrew.com/mtg/multiverseid/'+card.multiverseids[card.multiverseids.length-1].multiverseid+'.jpg'}/>
+                    	return <img key={i}
+                        style={transparent}
+                        src={'https://image.deckbrew.com/mtg/multiverseid/'+card.multiverseids[card.multiverseids.length-1].multiverseid+'.jpg'}
+                        onLoad={this.handleImgLoad}/>
                     }
-                }) }
+                }.bind(this)) }
         	</div>
         }
     }

@@ -6,6 +6,14 @@ var ReactHighcharts = require('react-highcharts/bundle/highcharts');
 var cards = require('./data/cardPlotSeriesed.json');
 var cardsRaw = require('./data/allCardsMod.json');
 
+Highcharts.setOptions({
+    chart: {
+        style: {
+            fontFamily: 'Dosis'
+        }
+    }
+});
+
 var plotConfig = {
 chart: {
         type: 'scatter',
@@ -47,10 +55,14 @@ chart: {
         	return s;                    	
         },
         followPointer: false,
-        style: {"width": '200px', 'lineColor': null, 'color': "rgba(255,255,255,0,5)"}
+        style: {"width": '200px', 'lineColor': null, 'color': "rgba(255,255,255,0,5)"},
+        snap: 1,
+        shared: false,
+        crosshairs: false
     },
     plotOptions: {
         scatter: {
+        	stickyTracking: false,
         	turboThreshold: 15000,
             marker: {
             	lineWidth: 1,
@@ -61,7 +73,8 @@ chart: {
                         enabled: true,
                         lineColor: 'rgb(100,100,100)'
                     }
-                }
+                },
+                symbol: 'circle'
             },
             states: {
                 hover: {

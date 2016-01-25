@@ -73,7 +73,9 @@ var RunOnServer = React.createClass({
 		};
 
 		var elemInlineBlock = {
-			display: 'inline-block'
+			display: 'inline-block',
+			textAlign: 'center',
+			padding: '3px'
 		};
 
 		var elemBlock = {
@@ -122,32 +124,15 @@ var RunOnServer = React.createClass({
 			text = this.state.data;
 		};
 
-		/*// If processing, return the button and the Processing text.
-  		if (this.state.data == "Processing..." || this.state.data.length == 0) {
-	        return <div>
-	        	<Button label="Combine Cards" disabled={!(this.props.combine1Ready && this.props.combine2Ready)} onClick={this.handleClick} accent primary raised />
-	        	<p>{this.state.data}</p>
-	        </div>;
-	    }
-	    // If it's an error, it hopefully starts with 'Traceback', so just display that.
-	    else if (this.state.data.includes("Traceback")) {
-	    	return <div>
-	        	<Button label="Combine Cards" disabled={!(this.props.combine1Ready && this.props.combine2Ready)} onClick={this.handleClick} accent primary raised />
-	        	<p>{this.state.data}</p>
-	        </div>;
-	    }
-	    // If not either of those, hopefully it's the results.
-	    else if (this.state.data.length !== 0) {*/
-	    	return <div >
-	        	<Button label="Combine Cards" disabled={!(this.props.combine1Ready && this.props.combine2Ready)} onClick={this.handleClick} accent primary raised />
-	        	<p>{text}</p>
-					<div style={elemBlock}>
-				  		<div style={elemInline}>
-	                		{ images }
-						</div>
+    	return <div >
+        	<Button label="Combine Cards" disabled={!(this.props.combine1Ready && this.props.combine2Ready)} onClick={this.handleClick} accent primary raised />
+        	<p>{text}</p>
+				<div style={elemBlock}>
+			  		<div style={elemInline}>
+                		{ images }
 					</div>
-	        </div>;
-	    //}
+				</div>
+        </div>;
     }
 });
 
