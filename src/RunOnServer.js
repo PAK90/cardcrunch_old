@@ -12,20 +12,28 @@ var RunOnServer = React.createClass({
 	getInitialState: function() {
 	    return {data: [], hoveredId: ' ', imageLoaded: false};
 	},
+
 	handleHover: function(cardname) {
 		// Setting imageLoaded here because it makes the re-rendering of smaller card image at 1 opacity in the squeeze style.
 		this.setState({hoveredId: cardname, imageLoaded: true});
 	},
+
 	handleImgLoad: function(e) {
 		var img = e.target;
 		// Needs the dollar sign for some reason.
 		$.Velocity(img, {rotateY: [0,90], opacity: [1,0]}, {duration: 750});
 	},
+
+    handleFindButtonClick: function(e) {
+        this.props.updateZoomCard(e);
+    },
+
     handleClick: function(e) {
     	this.runOnServer();
     	// When clicked, run this. Should replace with a spinny circle at some point.
     	this.setState({data: "Processing...", imageLoaded: false}, this.animateAway(e));    	
     },
+
     animateAway: function(e) {
     	// Animate away existing cards.
     	var cardDiv = e.target.nextElementSibling.nextElementSibling;
@@ -33,6 +41,7 @@ var RunOnServer = React.createClass({
 			//$.Velocity(cardDiv, {opacity: [0,1]}, {duration: 750});
 		}
     },
+
     runOnServer: function() {
 	    $.ajax({
 		    url: this.props.url,
@@ -50,6 +59,7 @@ var RunOnServer = React.createClass({
 		    }.bind(this)
 	    });
     },
+
   	render: function() {
   		var cardObject = this.props.items;
 
@@ -82,6 +92,15 @@ var RunOnServer = React.createClass({
 			display: 'block'
 		};
 
+		var spanStyle = {
+			color: '#F8F8F8',
+		    backgroundColor: '#000000',
+		    borderColor: '#000000',
+		    padding: '2px',
+		    borderTopRightRadius: '5px',
+		    borderTopLeftRadius: '5px'
+		};
+
   		// Pre-parse the card array that the python script returns. Ensure it only tries to parse when there's no error.
   		var cardArray;
   		if (this.state.data.length !== 0 && this.state.data != "Processing..." && !this.state.data.includes("Traceback")) {
@@ -101,14 +120,16 @@ var RunOnServer = React.createClass({
 		    // If the card's hovering is true, render it fullsize. If false, render it with the squeeze style.
 	  		var images = cardArray.resultCards.map(function(card){
 	        	if (card.hovered) {
-	                return <div style={elemInlineBlock}>{Math.round(card.deviation * 10000)/10000}
+	                return <div style={elemInlineBlock}><span style={spanStyle}>{Math.round(card.deviation * 10000)/10000}</span>
+            			<Button type="button" id="find" accent primary raised onClick={this.handleFindButtonClick.bind(this, card.cardname)}>F</Button>
 	                	<img style={elemBlock} onMouseOver={this.handleHover.bind(this,card.cardname)}
 	                	onMouseOut={this.handleHover.bind(this, '')}
 	                	src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/>
 	                </div>;
 	            }
 	            else {
-	                return <div style={elemInlineBlock}>{Math.round(card.deviation * 10000)/10000}
+	                return <div style={elemInlineBlock}><span style={spanStyle}>{Math.round(card.deviation * 10000)/10000}</span>
+            			<Button type="button" id="find" accent primary raised onClick={this.handleFindButtonClick.bind(this, card.cardname)}>F</Button>
 	                	<img style={squeeze}
 	                	onMouseOver={this.handleHover.bind(this,card.cardname)}
 	                	onMouseOut={this.handleHover.bind(this, '')}

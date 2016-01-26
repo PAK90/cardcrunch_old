@@ -64,7 +64,7 @@ var CardSearch = React.createClass({
     },
 
     handleKeyUp: function(e) {
-        console.log(e);
+        //console.log(e);
         // Keypresses are only relevant when there's a search string and a card isn't selected.
         if (this.state.searchString.length !== 0 && this.state.lineSelected == false) {
             if (e.key == "ArrowUp") {
@@ -100,6 +100,10 @@ var CardSearch = React.createClass({
         // Generate random number between 0 and 1, multiply by number of cards, and floor (round) it to an integer.
         var randomCard = cardCollection[Math.floor(Math.random()*cardCollection.length)];
         this.handleListClick(randomCard);
+    },
+
+    handleFindButtonClick: function(e) {
+        this.props.updateZoomCard(this.state.searchString);
     },
 
     render: function() {
@@ -267,12 +271,16 @@ var CardSearch = React.createClass({
             var transparent = {
                 opacity: 0
             }
+            var small = {
+                width: '30px'
+            }
 
         	return <div>
         		<input type="text" style={borderStyle} value={this.state.searchString} onChange={this.handleChange} placeholder={placeholderString} />
         		<Button type="button" id="random" accent primary raised onClick={this.handleRandomButtonClick}>Random Card</Button>
+                <Button type="button" id="find" accent primary raised style={small} onClick={this.handleFindButtonClick}>F</Button>
                 <br />
-        		{ cardCollection.map(function(card, i){
+        		{ cardCollection.map(function(card, i) {
         			// Only return an image if there's only one image (the search result) to return.
         			// If not, don't return this and there will only be the search box.
         			if (cardCollection.length == 1) {

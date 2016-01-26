@@ -29,13 +29,16 @@ for (var key in cards) {
 
 var Parent = React.createClass({
     getInitialState: function(){
-        return {card1: "", card2: "", slider: 0.5, combine1Ready: false, combine2Ready: false};
+        return {card1: "", card2: "", zoomCard: "", slider: 0.5, combine1Ready: false, combine2Ready: false};
     },
     updateCard1: function(card){
         this.setState({card1: card});
     },
     updateCard2: function(card){
         this.setState({card2: card});
+    },
+    updateZoomCard: function(card){
+        this.setState({zoomCard: card});
     },
     updateSlider: function(value){
         this.setState({slider: value});
@@ -56,7 +59,8 @@ var Parent = React.createClass({
                     placeholder="Card 1 here" 
                     card={this.state.card1} 
                     updateCard={this.updateCard1} 
-                    updateCombineState={this.updateCombineState1}/>
+                    updateCombineState={this.updateCombineState1}
+                    updateZoomCard={this.updateZoomCard}/>
                 </td>
                 <td>
                 <CardSearch 
@@ -64,10 +68,11 @@ var Parent = React.createClass({
                     placeholder="Card 2 here" 
                     card={this.state.card2} 
                     updateCard={this.updateCard2} 
-                    updateCombineState={this.updateCombineState2}/>
+                    updateCombineState={this.updateCombineState2}
+                    updateZoomCard={this.updateZoomCard}/>
                 </td>
                 <td>
-                    <CosinePlot/>
+                    <CosinePlot zoomString={this.state.zoomCard}/>
                 </td>
             </tr>
             <tr>
@@ -87,6 +92,7 @@ var Parent = React.createClass({
                     sliderValue={this.state.slider}
                     combine1Ready={this.state.combine1Ready}
                     combine2Ready={this.state.combine2Ready}
+                    updateZoomCard={this.updateZoomCard}
                     items={cards}/>
                 </td>
             </tr>
