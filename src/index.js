@@ -4,6 +4,7 @@ import CardSearch from './CardSearch';
 import RunOnServer from './RunOnServer';
 import WeightScale from './WeightScale';
 import CosinePlot from './CosinePlot';
+import Button from 'react-toolbox/lib/button';
 require('./style.scss');
 
 // This used to be 'json!.data/allCards.json' until I put it in webpack.config.js. Confusing stuff...
@@ -29,7 +30,29 @@ for (var key in cards) {
 
 var Parent = React.createClass({
     getInitialState: function(){
-        return {card1: "", card2: "", zoomCard: "", slider: 0.5, combine1Ready: false, combine2Ready: false};
+        return {card1: "", card2: "", zoomCard: "", slider: 0.5, combine1Ready: false, combine2Ready: false, combinationData: ''};
+    },
+    runOnServer: function() {
+        $.ajax({
+            url: "py/comparecards",
+            dataType: 'text',
+            cache: false,
+            // The card names are stored in the python script sources in lowercase and with ~ instead of -, as well as many other letter replacements.
+            data: {card1: this.state.card1.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e"),
+                   card2: this.state.card2.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e"),
+                   slider: this.state.slider},
+            success: function(data) {
+                this.setState({combinationData: data});
+            }.bind(this),
+            error: function(xhr, status, err) {
+                console.error("py/comparecards", status, err.toString());
+            }.bind(this)
+        });
+    },
+    handleClick: function(e) {
+        this.runOnServer();
+        // When clicked, run this. Should replace with a spinny circle at some point.
+        this.setState({combinationData: "Processing..."});        
     },
     updateCard1: function(card){
         this.setState({card1: card});
@@ -50,6 +73,10 @@ var Parent = React.createClass({
         this.setState({combine2Ready: state});
     },
     render: function() {
+        var topMargin = {
+            marginTop: '250px'
+        };
+
         return (<div><table>
         <tbody>
             <tr>
@@ -61,6 +88,13 @@ var Parent = React.createClass({
                     updateCard={this.updateCard1} 
                     updateCombineState={this.updateCombineState1}
                     updateZoomCard={this.updateZoomCard}/>
+                </td>
+                <td>
+                <Button 
+                    label="Combine Cards" 
+                    style={topMargin}
+                    disabled={!(this.state.combine1Ready && this.state.combine2Ready)} 
+                    onClick={this.handleClick} accent primary raised />
                 </td>
                 <td>
                 <CardSearch 
@@ -76,7 +110,7 @@ var Parent = React.createClass({
                 </td>
             </tr>
             <tr>
-                <td colSpan = "2">
+                <td colSpan = "3">
                     <WeightScale updateSlider={this.updateSlider}/>
                 </td>
             </tr>
@@ -84,15 +118,10 @@ var Parent = React.createClass({
         </table>
         <table><tbody>        
             <tr>
-                <td colSpan="2">
+                <td colSpan="3">
                 <RunOnServer 
-                    url="py/comparecards" 
-                    card1={this.state.card1} 
-                    card2={this.state.card2} 
-                    sliderValue={this.state.slider}
-                    combine1Ready={this.state.combine1Ready}
-                    combine2Ready={this.state.combine2Ready}
                     updateZoomCard={this.updateZoomCard}
+                    combinationData={this.state.combinationData}
                     items={cards}/>
                 </td>
             </tr>

@@ -120,11 +120,14 @@ ul li:hover{
     color: #7B8585;
 }
 
-/*tr td div div div div span{
-    color: #F8F8F8;
-    background-color: #000000;
-    border-color: #000000;
-    padding: 2px;
-    border-top-right-radius: 5px;
-    border-top-left-radius: 5px;
-}*/
+#randomButton {
+    background-color: #abcdef !important;
+    color: #7B8585 !important;
+    opacity: 0.5 !important;
+    font-family: "Dosis" !important;
+}
+
+/* Overwrite the chart's font. Probably a better way of doing this, but this works. */
+tr td div div svg{
+    font-family: "Dosis" !important;
+}

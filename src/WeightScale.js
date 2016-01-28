@@ -12,9 +12,10 @@ var WeightScale = React.createClass({
 	},
 
 	render: function() {
-		// Not sure this does anything...
+		// Makes this appear in the middle. Not sure how.
 		var inline = {
-			display: 'inline-block'
+			width: '45%',
+			margin: '0 auto'
 		};
 
 		// Return two spans rounded to 0.1, and a slider with 0.1 size steps.
