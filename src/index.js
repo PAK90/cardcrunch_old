@@ -5,6 +5,7 @@ import RunOnServer from './RunOnServer';
 import WeightScale from './WeightScale';
 import CosinePlot from './CosinePlot';
 import Button from 'react-toolbox/lib/button';
+import style from './style';
 require('./style.scss');
 
 // This used to be 'json!.data/allCards.json' until I put it in webpack.config.js. Confusing stuff...
@@ -92,7 +93,7 @@ var Parent = React.createClass({
                 <td>
                 <Button 
                     label="Combine Cards" 
-                    style={topMargin}
+                    className={style.button2}
                     disabled={!(this.state.combine1Ready && this.state.combine2Ready)} 
                     onClick={this.handleClick} accent primary raised />
                 </td>

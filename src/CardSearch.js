@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Button, IconButton} from 'react-toolbox/lib/button';
+import style from './style';
 var DiceIcon = require('babel!svg-react!../src/data/img/DiceIcon.svg?name=DiceIcon');
 
 var VelocityTransitionGroup = require('velocity-react/velocity-transition-group.js');
@@ -284,7 +285,7 @@ var CardSearch = React.createClass({
 
         	return <div>
         		<input type="text" style={borderStyle} value={this.state.searchString} onChange={this.handleChange} placeholder={placeholderString} />
-        		<Button type="button" id='randomButton' onClick={this.handleRandomButtonClick}>Random Card</Button>
+        		<Button type="button" className={style.button} onClick={this.handleRandomButtonClick}>Random Card</Button>
                 <IconButton primary onClick={this.handleFindButtonClick}><GithubIcon/></IconButton>
                 <br />
         		{ cardCollection.map(function(card, i) {
