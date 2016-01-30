@@ -170,12 +170,12 @@ var CardSearch = React.createClass({
             // Still searching, so return the search box and all the remaining filtered cards.
             return <div>
 	            <input type="text" value={this.state.searchString} onChange={this.handleChange} onKeyDown={this.handleKeyUp} placeholder={placeholderString} />
-                <Button type="button" className="random" accent primary raised onClick={this.handleRandomButtonClick}>Random Card</Button>
+                <Button type="button" className={style.button} onClick={this.handleRandomButtonClick}>Random Card</Button>
                 <br />
 	            <ul onClick={this.handleListClick}> 
                     <VelocityTransitionGroup enter={animationEnter} leave={animationLeave}>                            
     	                { cardCollection.map(function(card, i){
-    	                    return <li key={i}>{card.name} {card.tagCost}</li>;
+    	                    return <li key={i} id={i}>{card.name} {card.tagCost}</li>;
     	                }) }
                     </VelocityTransitionGroup>
 	            </ul>
@@ -282,12 +282,18 @@ var CardSearch = React.createClass({
             var small = {
                 width: '30px'
             }
+            // Makes this appear in the middle. Not sure how.
+            var inline = {
+                width: '85%',
+                margin: '0 auto'
+            };
 
         	return <div>
         		<input type="text" style={borderStyle} value={this.state.searchString} onChange={this.handleChange} placeholder={placeholderString} />
-        		<Button type="button" className={style.button} onClick={this.handleRandomButtonClick}>Random Card</Button>
-                <IconButton primary onClick={this.handleFindButtonClick}><GithubIcon/></IconButton>
+        		<div style={inline}><Button type="button" className={style.button} onClick={this.handleRandomButtonClick}>Random Card</Button>
+                <IconButton primary onClick={this.handleFindButtonClick}><GithubIcon/></IconButton></div>
                 <br />
+                <div style={inline}>
         		{ cardCollection.map(function(card, i) {
         			// Only return an image if there's only one image (the search result) to return.
         			// If not, don't return this and there will only be the search box.
@@ -298,6 +304,7 @@ var CardSearch = React.createClass({
                         onLoad={this.handleImgLoad}/>
                     }
                 }.bind(this)) }
+                </div>
         	</div>
         }
     }
