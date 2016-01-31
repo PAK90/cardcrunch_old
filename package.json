@@ -39,6 +39,7 @@
     "normalize.css": "^3.0.3",
     "react": "^0.14.3",
     "react-addons-css-transition-group": "^0.14.3",
+    "react-autosuggest": "^3.4.0",
     "react-d3-components": "^0.6.2",
     "react-dom": "^0.14.3",
     "react-highcharts": "^6.0.0",

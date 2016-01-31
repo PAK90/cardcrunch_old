@@ -44,7 +44,7 @@ module.exports = {
       { test: /\.jpg$/, loader: "file-loader" },
       {
         test: /(\.scss|\.css)$/,
-        loader: ExtractTextPlugin.extract('style', 'css?sourceMap&modules&importLoaders=1&localIdentName=[name]__[local]___[hash:base64:5]!postcss!sass?sourceMap!toolbox')
+        loader: ExtractTextPlugin.extract('style', 'css?sourceMap!sass?sourceMap!toolbox')
       },
       { test: /\.json$/, loader: "json-loader" }
     ]

@@ -67,8 +67,8 @@ var CardSearch = React.createClass({
         // This is because in React, an input cannot change independently of the value
         // that was assigned to it. In our case this is this.state.searchString.
 
-        this.setState({searchString:e.target.value});
-        this.setState({lineSelected:false}, this.props.updateCombineState(false));
+        this.setState({searchString: e.target.value});
+        this.setState({lineSelected: false}, this.props.updateCombineState(false));
     },
 
     handleKeyUp: function(e) {
@@ -112,6 +112,10 @@ var CardSearch = React.createClass({
 
     handleFindButtonClick: function(e) {
         this.props.updateZoomCard(this.state.searchString);
+    },
+    
+    handleListHover: function(e, i) {
+        console.log(e, i);
     },
 
     render: function() {
@@ -170,9 +174,9 @@ var CardSearch = React.createClass({
             // Still searching, so return the search box and all the remaining filtered cards.
             return <div>
 	            <input type="text" value={this.state.searchString} onChange={this.handleChange} onKeyDown={this.handleKeyUp} placeholder={placeholderString} />
-                <Button type="button" className={style.button} onClick={this.handleRandomButtonClick}>Random Card</Button>
+                <Button type="button" className="button" onClick={this.handleRandomButtonClick}>Random Card</Button>
                 <br />
-	            <ul onClick={this.handleListClick}> 
+	            <ul onClick={this.handleListClick} onHover={this.handleListHover}> 
                     <VelocityTransitionGroup enter={animationEnter} leave={animationLeave}>                            
     	                { cardCollection.map(function(card, i){
     	                    return <li key={i} id={i}>{card.name} {card.tagCost}</li>;
@@ -290,7 +294,7 @@ var CardSearch = React.createClass({
 
         	return <div>
         		<input type="text" style={borderStyle} value={this.state.searchString} onChange={this.handleChange} placeholder={placeholderString} />
-        		<div style={inline}><Button type="button" className={style.button} onClick={this.handleRandomButtonClick}>Random Card</Button>
+        		<div style={inline}><Button type="button" className="button" onClick={this.handleRandomButtonClick}>Random Card</Button>
                 <IconButton primary onClick={this.handleFindButtonClick}><GithubIcon/></IconButton></div>
                 <br />
                 <div style={inline}>

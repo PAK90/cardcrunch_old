@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import CardSearch from './CardSearch';
+import CardSearch2 from './CardSearch2';
 import RunOnServer from './RunOnServer';
 import WeightScale from './WeightScale';
 import CosinePlot from './CosinePlot';
@@ -82,8 +83,7 @@ var Parent = React.createClass({
         <tbody>
             <tr>
                 <td>
-                <CardSearch 
-                    items={ cardArray } 
+                <CardSearch2
                     placeholder="Card 1 here" 
                     card={this.state.card1} 
                     updateCard={this.updateCard1} 
@@ -93,9 +93,9 @@ var Parent = React.createClass({
                 <td>
                 <Button 
                     label="Combine Cards" 
-                    className={style.button2}
+                    className="button2"
                     disabled={!(this.state.combine1Ready && this.state.combine2Ready)} 
-                    onClick={this.handleClick} accent primary raised />
+                    onClick={this.handleClick} />
                 </td>
                 <td>
                 <CardSearch 

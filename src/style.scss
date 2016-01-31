@@ -102,6 +102,12 @@ ul{
     text-align: left;
 }
 
+/* List items when hovered. */
+.react-autosuggest__suggestion--focused{
+    background-color: #F8F8F8;
+    color: #7B8585;
+}
+
 /* The individual list items. */
 ul li{
     display: block;
@@ -115,22 +121,50 @@ ul li{
 }
 
 /* List items when hovered. */
-ul li:hover{
+ul li:hover, ul li:focus{
     background-color: #F8F8F8;
     color: #7B8585;
 }
 
+/* The random card buttons. */
 .button {
+    padding: 10px;
     background-color: #abcdef;
     color: #7B8585;
     opacity: 0.5;
     font-family: "Dosis";
+    border-radius: 3px;
+    border: 0;
+    transition: 0.3s;
 }
+.button:hover{
+    opacity: 1;
+    border-radius: 15px;
+    background-color: #2196f3;
+    color: #abcdef;
+}
+/* The combine button. */
 .button2 {
     margin-top: 250px;
+    padding: 10px;
     background-color: #abcdef;
     color: #7B8585;
     font-family: "Dosis";
+    border-radius: 3px;
+    border: 0;
+    transition: 0.3s;
+}
+.button2:hover{
+    opacity: 1;
+    border-radius: 15px;
+    background-color: #2196f3;
+    color: #abcdef;
+}
+.button2:disabled{
+    opacity: 0.3;
+    background-color: #abcdef;
+    color: #7B8585;
+    border-radius: 3px;
 }
 
 /* Overwrite the chart's font. Probably a better way of doing this, but this works. */
