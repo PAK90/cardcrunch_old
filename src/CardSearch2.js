@@ -69,22 +69,6 @@ function escapeRegexCharacters(str) {
     return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
-function getSuggestions(value) {
-    const escapedValue = escapeRegexCharacters(value.trim());
-  
-    if (escapedValue === '') {
-        return [];
-    }
-
-    const regex = new RegExp('^' + escapedValue, 'i');
-
-    var filteredArray = cardArray.filter(cardArray => regex.test(cardArray.name));
-    if (filteredArray.length > 10) {
-        filteredArray.length = 10;
-    }
-    return filteredArray;
-}
-
 function getSuggestionValue(suggestion) {
     return suggestion.name;
 }
@@ -109,9 +93,34 @@ var CardSearch2 = React.createClass({
     getInitialState: function() {
         return {
             value: '',
-            suggestions: getSuggestions(''),
+            suggestions: this.getSuggestions(''),
             cardSelected: false
         };
+    },
+
+
+    getSuggestions: function(value) {
+        const escapedValue = escapeRegexCharacters(value.trim());
+      
+        if (escapedValue === '') {
+            return [];
+        }
+
+        const regex = new RegExp('^' + escapedValue, 'i');
+
+        var filteredArray;
+        if (this.props.searchWordFirst) { // If the slider is set to 'start', i.e. how this usually behaves.
+            filteredArray = cardArray.filter(cardArray => regex.test(cardArray.name));
+        }
+        else {
+            filteredArray = cardArray.filter(function(card) {
+                return card.name.toLowerCase().match( escapedValue );
+            })
+        }
+        if (filteredArray.length > 10) {
+            filteredArray.length = 10;
+        }
+        return filteredArray;
     },
 
     handleImgLoad: function(e) {
@@ -136,7 +145,7 @@ var CardSearch2 = React.createClass({
     
     onSuggestionsUpdateRequested: function({ value }) {
         this.setState({
-            suggestions: getSuggestions(value),
+            suggestions: this.getSuggestions(value),
             cardSelected: false
         });
     },
@@ -184,6 +193,7 @@ var CardSearch2 = React.createClass({
             opacity: 0
         };
 
+        // Return a cardImage with actual image if selected, empty tag if not.
         var cardImage;
         if (this.state.cardSelected) {
             cardImage = <img
@@ -194,7 +204,6 @@ var CardSearch2 = React.createClass({
         else {
             cardImage = <img/>
         }
-
         
         var animationEnter = {
             duration: 100,
@@ -218,7 +227,7 @@ var CardSearch2 = React.createClass({
                    inputProps={inputProps}
                    ref={this.saveInput}
                    onSuggestionSelected={this.selectCard} />
-                </VelocityTransitionGroup>
+            </VelocityTransitionGroup>
             <Button type="button" className="button" onClick={this.handleRandomButtonClick}>Random Card</Button>
             <br/>
             {cardImage}

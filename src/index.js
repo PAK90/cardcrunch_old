@@ -32,7 +32,7 @@ for (var key in cards) {
 
 var Parent = React.createClass({
     getInitialState: function(){
-        return {card1: "", card2: "", zoomCard: "", slider: 0.5, combine1Ready: false, combine2Ready: false, combinationData: ''};
+        return {card1: "", card2: "", zoomCard: "", slider: 0.5, combine1Ready: false, combine2Ready: false, combinationData: '', switch: false};
     },
     runOnServer: function() {
         $.ajax({
@@ -56,6 +56,15 @@ var Parent = React.createClass({
         // When clicked, run this. Should replace with a spinny circle at some point.
         this.setState({combinationData: "Processing..."});        
     },
+    handleSwitch: function(e) {
+        if (e.target.checked) {
+            this.setState({switch: true});
+        }
+        else
+        {
+            this.setState({switch: false});
+        }
+    },
     updateCard1: function(card){
         this.setState({card1: card});
     },
@@ -75,8 +84,9 @@ var Parent = React.createClass({
         this.setState({combine2Ready: state});
     },
     render: function() {
-        var topMargin = {
-            marginTop: '250px'
+        var inline = {
+            width: '70%',
+            margin: '0 auto'
         };
 
         return (<div><table>
@@ -88,9 +98,27 @@ var Parent = React.createClass({
                     card={this.state.card1} 
                     updateCard={this.updateCard1} 
                     updateCombineState={this.updateCombineState1}
-                    updateZoomCard={this.updateZoomCard}/>
+                    updateZoomCard={this.updateZoomCard}
+                    searchWordFirst={this.state.switch}/>
                 </td>
                 <td>
+                <div style={inline}>
+                    <div className="onoffswitch">
+                        <input 
+                            type="checkbox" 
+                            name="onoffswitch" 
+                            onChange={this.handleSwitch}  
+                            className="onoffswitch-checkbox" 
+                            id="myonoffswitch" 
+                            checked={this.state.switch}/>
+                        <label className="onoffswitch-label" htmlFor="myonoffswitch">
+                            <span className="onoffswitch-inner"></span>
+                            <span className="onoffswitch-switch"></span>
+                        </label>
+                    </div>
+                </div>
+                <p width='100px !important'>Name search start position</p>
+                <br/>
                 <Button 
                     label="Combine Cards" 
                     className="button2"

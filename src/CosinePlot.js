@@ -24,7 +24,7 @@ var plotConfig = {
 	    	}.bind(this),
 	    },
 	    title: {
-	        text: 'Cosine Similarity',
+	        text: 't-SNE',
 	        style: {"color": '#F8F8F8', 'fontSize': '18px'}
 	    },
 	    subtitle: {

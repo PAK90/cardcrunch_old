@@ -145,7 +145,7 @@ ul li:hover, ul li:focus{
 }
 /* The combine button. */
 .button2 {
-    margin-top: 250px;
+    margin-top: 200px;
     padding: 10px;
     background-color: #abcdef;
     color: #7B8585;
@@ -170,4 +170,52 @@ ul li:hover, ul li:focus{
 /* Overwrite the chart's font. Probably a better way of doing this, but this works. */
 tr td div div svg{
     font-family: "Dosis" !important;
+}
+
+/* The switch styling. */
+.onoffswitch {
+    position: relative; width: 80px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-label {
+    display: block; overflow: hidden; cursor: pointer;
+    border: 0px solid #FFFFFF; border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block; width: 200%; margin-left: -100%;
+    transition: margin 0.2s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block; float: left; width: 50%; height: 24px; padding: 0; line-height: 24px;
+    font-size: 12px; color: white; font-family: "Dosis"; font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "Start"; /* "on" */
+    padding-left: 10px;
+    background-color: #2196F3; color: #FFFFFF;
+}
+.onoffswitch-inner:after {
+    content: "Any"; /* "off" */
+    padding-right: 10px;
+    background-color: #FFFFFF; color: #2196F3;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block; width: 18px; margin: 3px;
+    background: #2196F3;
+    position: absolute; top: 0; bottom: 0;
+    right: 52px;
+    border: 0px solid #FFFFFF; border-radius: 20px;
+    transition: all 0.2s ease-in 0s; 
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px; 
+    background-color: #FFFFFF; 
 }
