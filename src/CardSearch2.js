@@ -94,7 +94,8 @@ var CardSearch2 = React.createClass({
         return {
             value: '',
             suggestions: this.getSuggestions(''),
-            cardSelected: false
+            cardSelected: false,
+            selectedCard: null
         };
     },
 
@@ -146,7 +147,8 @@ var CardSearch2 = React.createClass({
     onSuggestionsUpdateRequested: function({ value }) {
         this.setState({
             suggestions: this.getSuggestions(value),
-            cardSelected: false
+            cardSelected: false,
+            selectedCard: null
         });
     },
   
@@ -178,6 +180,10 @@ var CardSearch2 = React.createClass({
         this.selectCard(randomCard, false);
     },
 
+    handleFindButtonClick: function(e) {
+        this.props.updateZoomCard(this.state.selectedCard.name);
+    },
+
     render: function() {        
         var placeholderString = this.props.placeholder;
 
@@ -189,6 +195,7 @@ var CardSearch2 = React.createClass({
             onChange: this.onChange
         };
 
+        // Used on the cards so they don't display before they animate in.
         var transparent = {
             opacity: 0
         };
@@ -205,6 +212,7 @@ var CardSearch2 = React.createClass({
             cardImage = <img/>
         }
         
+        // Animations
         var animationEnter = {
             duration: 100,
             animation: Animations.In,
@@ -217,18 +225,123 @@ var CardSearch2 = React.createClass({
             backwards: true
         };
 
+        var borderColour1, borderColour2;
+        var gradient = false;
+        var isSimic = 0; // These two are needed because WR and UG colour pairs appear out of order, for some reason.
+        var isBoros = 0; // So if a pair is one of these, the colours need to be flipped.
+        if (this.state.selectedCard !== null) {
+            if (this.state.selectedCard.colors !== undefined) {
+                if (this.state.selectedCard.colors.length <= 2) { // Monocoloured cards. Also encode the first colour of dual-coloured cards.
+                    var colourCode = this.state.selectedCard.colors[0];
+                    switch (colourCode) {
+                        case 'White':
+                            borderColour1 = "#f8f9f4";
+                            isBoros = 1;
+                            break;
+                        case 'Blue':
+                            borderColour1 = "#0083c5";
+                            isSimic = 1;
+                            break;
+                        case 'Red':
+                            borderColour1 = "#ec4b26";
+                            break;
+                        case 'Black':
+                            borderColour1 = "#2b281f";
+                            break;
+                        case 'Green':
+                            borderColour1 = "#008045";
+                            break;
+                    }
+
+                    if (this.state.selectedCard.colors.length == 2) { // Gold-but-coloured cards. Encode the second colour.
+                        gradient = true;
+                        var colourCode = this.state.selectedCard.colors[1];
+                        switch (colourCode) {
+                            case 'White':
+                                borderColour2 = "#f8f9f4";
+                                break;
+                            case 'Blue':
+                                borderColour2 = "#0083c5";
+                                break;
+                            case 'Red':
+                                borderColour2 = "#ec4b26";
+                                isBoros++;
+                                break;
+                            case 'Black':
+                                borderColour2 = "#2b281f";
+                                break;
+                            case 'Green':
+                                borderColour2 = "#008045";
+                                isSimic++;
+                                break;
+                        }
+                        
+                        // Explicitly set Simic/Boros colours.
+                        if (isBoros == 2) {
+                            borderColour1 = "#ec4b26";
+                            borderColour2 = "#f8f9f4";
+                        }
+                        if (isSimic == 2) {
+                            borderColour1 = "#008045";
+                            borderColour2 = "#0083c5";
+                        }
+                    }
+                }
+                else { // Pure gold cards.
+                    borderColour1 = "#f3de7f"
+                }
+            }
+            else {
+                borderColour1 = "#c1c9c3"; // It's an artifact/land, so grey.
+            }
+        }
+        else {
+            borderColour1 = '#888888';
+        }
+
+        var borderStyle;
+        if (gradient) {
+            borderStyle = {
+                borderImageSlice: 1,
+                borderImage: '-webkit-linear-gradient(right, '+borderColour2+' 0%, '+borderColour2+' 40%, '+borderColour1+' 60%, '+borderColour1+' 100%) 1'
+            };   
+        }
+        else {             
+            borderStyle = {
+                'borderColor': borderColour1
+            };   
+        }
+        var theme = {
+            container: 'react-autosuggest__container',
+            containerOpen: 'react-autosuggest__container--open',
+            input: borderStyle,
+            suggestionsContainer: 'react-autosuggest__suggestions-container',
+            suggestion: 'react-autosuggest__suggestion',
+            suggestionFocused: 'react-autosuggest__suggestion--focused',
+            sectionContainer: 'react-autosuggest__section-container',
+            sectionTitle: 'react-autosuggest__section-title',
+            sectionSuggestionsContainer: 'react-autosuggest__section-suggestions-container'
+        };
+
         return (
             <div>
             <VelocityTransitionGroup enter={animationEnter} leave={animationLeave}> 
                 <Autosuggest suggestions={suggestions}
-                   onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
-                   getSuggestionValue={getSuggestionValue}
-                   renderSuggestion={renderSuggestion}
-                   inputProps={inputProps}
-                   ref={this.saveInput}
-                   onSuggestionSelected={this.selectCard} />
+                    theme={theme}
+                    onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
+                    getSuggestionValue={getSuggestionValue}
+                    renderSuggestion={renderSuggestion}
+                    inputProps={inputProps}
+                    ref={this.saveInput}
+                    onSuggestionSelected={this.selectCard} />
             </VelocityTransitionGroup>
             <Button type="button" className="button" onClick={this.handleRandomButtonClick}>Random Card</Button>
+            <button id="search-button" onClick={this.handleFindButtonClick}>
+                <svg id="search-icon" className="search-icon" viewBox="0 0 24 24">
+                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                    <path d="M0 0h24v24H0z" fill="none"/>
+                </svg>
+            </button>
             <br/>
             {cardImage}
             </div>
