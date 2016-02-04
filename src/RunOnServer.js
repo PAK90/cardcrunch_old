@@ -19,6 +19,20 @@ const FindIcon = () => (
         <path d="M0 0h24v24H0z" fill="none"/>
     </svg>
 );
+const CrosshairIcon = () => (
+	<svg id="highlight-icon" className="highlight-icon" viewBox="0 0 480 480">
+	    <path fill="#010002;" d="M477.546,228.616h-53.567c-9.827-80.034-74.019-143.608-154.719-153.134V20.321
+	        C269.259,9.096,260.155,0,248.938,0c-11.226,0-20.321,9.096-20.321,20.321v54.974c-81.375,8.941-146.257,72.808-156.15,153.313
+	        H20.321C9.096,228.608,0,237.704,0,248.929s9.096,20.321,20.321,20.321H72.19c8.99,81.513,74.328,146.428,156.426,155.451v52.844
+	        c0,11.226,9.096,20.321,20.321,20.321c11.217,0,20.321-9.096,20.321-20.321v-53.023c81.416-9.608,146.054-74.222,154.996-155.264
+	        h53.291c11.226,0,20.321-9.096,20.321-20.321S488.771,228.616,477.546,228.616z M269.259,383.392v-67.028
+	        c0-11.226-9.104-20.321-20.321-20.321c-11.226,0-20.321,9.096-20.321,20.321v67.24c-59.607-8.551-106.753-55.299-115.312-114.345
+	        h68.207c11.226,0,20.321-9.096,20.321-20.321s-9.096-20.321-20.321-20.321h-67.882c9.38-58.046,56.103-103.761,114.987-112.215
+	        v65.11c0,11.226,9.096,20.321,20.321,20.321c11.217,0,20.321-9.096,20.321-20.321v-64.899
+	        c58.209,8.982,104.249,54.421,113.556,112.004h-66.459c-11.226,0-20.321,9.096-20.321,20.321s9.096,20.321,20.321,20.321h66.793
+	        C374.646,327.842,328.191,374.297,269.259,383.392z"/>
+	</svg>
+)
 
 var RunOnServer = React.createClass({
 	getInitialState: function() {
@@ -38,6 +52,10 @@ var RunOnServer = React.createClass({
 
     handleFindButtonClick: function(e) {
         this.props.updateZoomCard(e);
+    },
+
+    handleHighlightButtonClick: function(e) {
+        this.props.updateHighlightCard(e);
     },
 
     animateAway: function(e) {
@@ -112,6 +130,9 @@ var RunOnServer = React.createClass({
                 		<button id="search-button-small" onClick={this.handleFindButtonClick.bind(this, card.cardname)}>
                     		<FindIcon/>
                  		</button>
+                 		<button id="highlight-button-small" onClick={this.handleHighlightButtonClick.bind(this, card.cardname)}>
+			                <CrosshairIcon/>
+		            	</button>
 	                	<img style={elemBlock} onMouseOver={this.handleHover.bind(this, card.cardname)}
 	                	onMouseOut={this.handleHover.bind(this, '')}
 	                	src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/>
@@ -122,6 +143,9 @@ var RunOnServer = React.createClass({
                 		<button id="search-button-small" onClick={this.handleFindButtonClick.bind(this, card.cardname)}>
                     		<FindIcon/>
                  		</button>
+                 		<button id="highlight-button-small" onClick={this.handleHighlightButtonClick.bind(this, card.cardname)}>
+			                <CrosshairIcon/>
+		            	</button>
 	                	<img style={squeeze}
 	                	onMouseOver={this.handleHover.bind(this, card.cardname)}
 	                	onMouseOut={this.handleHover.bind(this, '')}

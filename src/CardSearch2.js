@@ -184,6 +184,10 @@ var CardSearch2 = React.createClass({
         this.props.updateZoomCard(this.state.selectedCard.name);
     },
 
+    handleHighlightButtonClick: function(e) {
+        this.props.updateHighlightCard(this.state.selectedCard.name);
+    },
+
     render: function() {        
         var placeholderString = this.props.placeholder;
 
@@ -204,6 +208,7 @@ var CardSearch2 = React.createClass({
         var cardImage;
         if (this.state.cardSelected) {
             cardImage = <img
+                        id="cardImage"
                         style={transparent} 
                         src={'https://image.deckbrew.com/mtg/multiverseid/'+this.state.selectedCard.multiverseids[this.state.selectedCard.multiverseids.length-1].multiverseid+'.jpg'}
                         onLoad={this.handleImgLoad}/>
@@ -335,11 +340,25 @@ var CardSearch2 = React.createClass({
                     ref={this.saveInput}
                     onSuggestionSelected={this.selectCard} />
             </VelocityTransitionGroup>
-            <Button type="button" className="button" onClick={this.handleRandomButtonClick}>Random Card</Button>
+            <button type="button" className="button" onClick={this.handleRandomButtonClick}>Random Card</button>
             <button id="search-button" onClick={this.handleFindButtonClick}>
                 <svg id="search-icon" className="search-icon" viewBox="0 0 24 24">
                     <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
                     <path d="M0 0h24v24H0z" fill="none"/>
+                </svg>
+            </button>
+            <button id="highlight-button" onClick={this.handleHighlightButtonClick}>
+                <svg id="highlight-icon" className="highlight-icon" viewBox="0 0 480 480">
+                    <path fill="#010002;" d="M477.546,228.616h-53.567c-9.827-80.034-74.019-143.608-154.719-153.134V20.321
+                        C269.259,9.096,260.155,0,248.938,0c-11.226,0-20.321,9.096-20.321,20.321v54.974c-81.375,8.941-146.257,72.808-156.15,153.313
+                        H20.321C9.096,228.608,0,237.704,0,248.929s9.096,20.321,20.321,20.321H72.19c8.99,81.513,74.328,146.428,156.426,155.451v52.844
+                        c0,11.226,9.096,20.321,20.321,20.321c11.217,0,20.321-9.096,20.321-20.321v-53.023c81.416-9.608,146.054-74.222,154.996-155.264
+                        h53.291c11.226,0,20.321-9.096,20.321-20.321S488.771,228.616,477.546,228.616z M269.259,383.392v-67.028
+                        c0-11.226-9.104-20.321-20.321-20.321c-11.226,0-20.321,9.096-20.321,20.321v67.24c-59.607-8.551-106.753-55.299-115.312-114.345
+                        h68.207c11.226,0,20.321-9.096,20.321-20.321s-9.096-20.321-20.321-20.321h-67.882c9.38-58.046,56.103-103.761,114.987-112.215
+                        v65.11c0,11.226,9.096,20.321,20.321,20.321c11.217,0,20.321-9.096,20.321-20.321v-64.899
+                        c58.209,8.982,104.249,54.421,113.556,112.004h-66.459c-11.226,0-20.321,9.096-20.321,20.321s9.096,20.321,20.321,20.321h66.793
+                        C374.646,327.842,328.191,374.297,269.259,383.392z"/>
                 </svg>
             </button>
             <br/>

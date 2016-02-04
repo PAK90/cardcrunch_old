@@ -79,7 +79,9 @@ var plotConfig = {
 	                    },
 	                    select: {
 	                    	radius: 10,
-	                    	fillColor: null
+	                    	fillColor: null,
+			            	lineWidth: 3,
+			            	lineColor: '#888888'
 	                    }
 	                },
 	                symbol: 'circle'
@@ -99,7 +101,7 @@ var plotConfig = {
 
 var CosinePlot = React.createClass({
 	getInitialState: function() {
-		return {zoomString: '', zoomRatio: 1};
+		return {zoomString: '', highlightString: '', zoomRatio: 1};
 	},
 
 	scroller: function(e) {
@@ -148,15 +150,16 @@ var CosinePlot = React.createClass({
 
 	// This is what listens to all state/prop changes in this component.
 	componentWillUpdate: function(nextProps, nextState) {
+		let chart = this.refs.chart.getChart();
+		var correctedString, point, targetX, targetY;
 		if (nextProps.zoomString != this.state.zoomString) {
-			let chart = this.refs.chart.getChart();
 			// First we need to sanitize the string. Probably could do this in index.js at this point.
-			var correctedString = nextProps.zoomString.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e");
+			correctedString = nextProps.zoomString.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e");
 			// Then get the x/y coordinates of the point.
-			var point = chart.get(correctedString);
+			point = chart.get(correctedString);
 			if (point !== null) {
-				var targetX = point.x;
-				var targetY = point.y;
+				targetX = point.x;
+				targetY = point.y;
 				// Then zoom into that area. Redraw the chart and show the reset button.
 				chart.xAxis[0].zoom(targetX - 0.5, targetX + 0.5);
 				chart.yAxis[0].zoom(targetY - 0.5, targetY + 0.5);
@@ -165,6 +168,16 @@ var CosinePlot = React.createClass({
 				point.select(true, false); // Select the point (true) and unselect all others (cumulative = false).
 				// Set the state of the zoomString to the current string (which annoyingly calls this whole function again), and the zoomRatio to 0.1.
 				this.setState({zoomString: nextProps.zoomString, zoomRatio: 0.2});
+			}
+		}
+		else if (nextProps.highlightString != this.props.highlightString) {
+			correctedString = nextProps.highlightString.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e");
+			// Get the x/y coordinates of the point.
+			point = chart.get(correctedString);
+			if (point !== null) {
+				chart.series[point.series.index].group.toFront();
+				point.graphic.toFront(0);
+				point.select(true, true);
 			}
 		}
 	},

@@ -32,7 +32,15 @@ for (var key in cards) {
 
 var Parent = React.createClass({
     getInitialState: function(){
-        return {card1: "", card2: "", zoomCard: "", slider: 0.5, combine1Ready: false, combine2Ready: false, combinationData: '', switch: false};
+        return {card1: "", 
+                card2: "", 
+                zoomCard: "", 
+                highlightCard: "",
+                slider: 0.5, 
+                combine1Ready: false, 
+                combine2Ready: false, 
+                combinationData: '', 
+                switch: false};
     },
     runOnServer: function() {
         $.ajax({
@@ -74,6 +82,9 @@ var Parent = React.createClass({
     updateZoomCard: function(card){
         this.setState({zoomCard: card});
     },
+    updateHighlightCard: function(card){
+        this.setState({highlightCard: card});
+    },
     updateSlider: function(value){
         this.setState({slider: value});
     },
@@ -99,6 +110,7 @@ var Parent = React.createClass({
                     updateCard={this.updateCard1} 
                     updateCombineState={this.updateCombineState1}
                     updateZoomCard={this.updateZoomCard}
+                    updateHighlightCard={this.updateHighlightCard}
                     searchWordFirst={this.state.switch}/>
                 </td>
                 <td>
@@ -135,7 +147,7 @@ var Parent = React.createClass({
                     updateZoomCard={this.updateZoomCard}/>
                 </td>
                 <td>
-                    <CosinePlot zoomString={this.state.zoomCard}/>
+                    <CosinePlot zoomString={this.state.zoomCard} highlightString={this.state.highlightCard}/>
                 </td>
             </tr>
             <tr>
@@ -150,6 +162,7 @@ var Parent = React.createClass({
                 <td colSpan="3">
                 <RunOnServer 
                     updateZoomCard={this.updateZoomCard}
+                    updateHighlightCard={this.updateHighlightCard}
                     combinationData={this.state.combinationData}
                     items={cards}/>
                 </td>
