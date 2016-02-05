@@ -134,28 +134,52 @@ ul li:hover, ul li:focus{
     opacity: 0.5;
     border-radius: 3px;
     border: 0;
+    transition: 0.3s;
 }
 
 #search-button svg {
     width: 30px;
     height: 30px;
-    color: #7B8585;
+    fill: #7B8585;
+}
+
+#search-button:hover {
+    opacity: 1;
+    border-radius: 15px;
+    background-color: #2196f3;
+    color: #abcdef;
+}
+
+#search-button svg:hover {
+    fill: #abcdef;
 }
 
 /* The focus buttons (small). */
 #search-button-small {
-    width: 24px;
-    height: 24px;
-    background-color: #abcdef;
-    opacity: 0.5;
-    border-radius: 3px;
+    position: relative;
+    top: 3px;
+    width: 22px;
+    height: 22px;
+    background-color: #000000;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
     border: 0;
+    transition: 0.3s;
 }
 
 #search-button-small svg {
     width: 20px;
     height: 20px;
-    color: #7B8585;
+    fill: #ffffff;
+}
+
+#search-button-small:hover {
+    opacity: 1;
+    background-color: #ffffff;
+}
+
+#search-button-small svg:hover {
+    fill: #000000;
 }
 
 /* The crosshair buttons. */
@@ -166,32 +190,65 @@ ul li:hover, ul li:focus{
     opacity: 0.5;
     border-radius: 3px;
     border: 0;
+    transition: 0.3s;
 }
 
 #highlight-button svg {
     width: 30px;
     height: 30px;
-    color: #7B8585;
+    fill: #7B8585;
+}
+
+#highlight-button:hover {
+    opacity: 1;
+    border-radius: 15px;
+    background-color: #2196f3;
+    color: #abcdef;
+}
+
+#highlight-button svg:hover {
+    fill: #abcdef;
 }
 
 /* The small crosshair buttons. */
 #highlight-button-small {
-    width: 24px;
-    height: 24px;
-    background-color: #abcdef;
-    opacity: 0.5;
-    border-radius: 3px;
+    position: relative;
+    top: 3px;
+    width: 22px;
+    height: 22px;
+    background-color: #000000;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
     border: 0;
+    transition: 0.3s;
 }
 
 #highlight-button-small svg {
     width: 20px;
     height: 20px;
-    color: #7B8585;
+    fill: #ffffff;
+}
+
+#highlight-button-small:hover {
+    opacity: 1;
+    background-color: #ffffff;
+}
+
+#highlight-button-small svg:hover {
+    fill: #000000;
+}
+
+/* The text under Any/Start checkbox. */
+.tip {
+    display: inline;
+    width: 100px;
+    font-size: 12px;
 }
 
 /* The random card buttons. */
 .button {
+    position: relative; /* Needed this and top to counteract the padding. */
+    top: -9px;
     padding: 10px;
     background-color: #abcdef;
     color: #7B8585;

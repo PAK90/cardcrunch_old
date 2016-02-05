@@ -175,7 +175,7 @@ var CosinePlot = React.createClass({
 			// Get the x/y coordinates of the point.
 			point = chart.get(correctedString);
 			if (point !== null) {
-				chart.series[point.series.index].group.toFront();
+				chart.series[point.series.index].markerGroup.toFront();
 				point.graphic.toFront(0);
 				point.select(true, true);
 			}

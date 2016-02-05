@@ -129,7 +129,7 @@ var Parent = React.createClass({
                         </label>
                     </div>
                 </div>
-                <p width='100px !important'>Name search start position</p>
+                <span className="tip">Name search start position</span>
                 <br/>
                 <Button 
                     label="Combine Cards" 

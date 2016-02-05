@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import {Button, IconButton} from 'react-toolbox/lib/button';
 import style from './style';
 import Autosuggest from 'react-autosuggest';
-var DiceIcon = require('babel!svg-react!../src/data/img/DiceIcon.svg?name=DiceIcon');
 
 var VelocityTransitionGroup = require('velocity-react/velocity-transition-group.js');
 var VelocityComponent = require('velocity-react/velocity-component.js');

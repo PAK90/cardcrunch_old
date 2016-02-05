@@ -14,7 +14,7 @@ var WeightScale = React.createClass({
 	render: function() {
 		// Makes this appear in the middle. Not sure how.
 		var inline = {
-			width: '44%',
+			width: '46%',
 			margin: '0 auto'
 		};
 
