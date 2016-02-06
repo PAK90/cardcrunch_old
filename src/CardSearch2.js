@@ -100,7 +100,7 @@ var CardSearch2 = React.createClass({
 
 
     getSuggestions: function(value) {
-        const escapedValue = escapeRegexCharacters(value.trim());
+        const escapedValue = escapeRegexCharacters(value.toLowerCase());
       
         if (escapedValue === '') {
             return [];
@@ -125,8 +125,10 @@ var CardSearch2 = React.createClass({
 
     handleImgLoad: function(e) {
         var img = e.target;
+        var bg = e.target.previousElementSibling;
         // Needs the dollar sign for some reason.
         $.Velocity(img, {rotateY: [0,90], opacity: [1,0]}, {duration: 500});
+        $.Velocity(bg, {rotateY: [0,90], opacity: [1,0]}, {duration: 500});
     },
   
     componentDidMount: function() {
@@ -198,30 +200,6 @@ var CardSearch2 = React.createClass({
             onChange: this.onChange
         };
 
-        // Used on the cards so they don't display before they animate in.
-        var transparent = {
-            opacity: 0
-        };
-
-        var inline = {
-            width: '88%',
-            margin: '0 auto'
-        };
-
-        // Return a cardImage with actual image if selected, empty tag if not.
-        var cardImage;
-        if (this.state.cardSelected) {
-            cardImage = <div style={inline}>
-                            <img
-                            id="cardImage"
-                            style={transparent} 
-                            src={'https://image.deckbrew.com/mtg/multiverseid/'+this.state.selectedCard.multiverseids[this.state.selectedCard.multiverseids.length-1].multiverseid+'.jpg'}
-                            onLoad={this.handleImgLoad}/>
-                        </div>
-        }
-        else {
-            cardImage = <img/>
-        }
         
         var borderColour1, borderColour2;
         var gradient = false;
@@ -302,6 +280,45 @@ var CardSearch2 = React.createClass({
         }
         else {
             borderColour1 = '#888888';
+        }
+
+        // Used on the cards so they don't display before they animate in.
+        var transparent = {
+            opacity: 0,
+            zIndex: 1,
+            position: 'relative',
+            bottom: '310px' // Shift the card image over the blur glow background.
+        };
+
+        var inline = {
+            width: '88%',
+            margin: '0 auto',
+            height: '330px !important'
+        };
+
+        var bgBlur = {
+            opacity: 0,
+            width: 225,
+            height: 312,
+            WebkitFilter: 'blur(7px)',
+            background: gradient ? '-webkit-linear-gradient(right, '+borderColour2+' 0%, '+borderColour2+' 40%, '+borderColour1+' 60%, '+borderColour1+' 100%) ' : borderColour1,
+            zIndex: -10
+        };
+
+        // Return a cardImage with actual image if selected, empty tag if not.
+        var cardImage;
+        if (this.state.cardSelected) {
+            cardImage = <div style={inline}>
+                            <div style={bgBlur}/>
+                            <img
+                            id="cardImage"
+                            style={transparent} 
+                            src={'https://image.deckbrew.com/mtg/multiverseid/'+this.state.selectedCard.multiverseids[this.state.selectedCard.multiverseids.length-1].multiverseid+'.jpg'}
+                            onLoad={this.handleImgLoad}/>
+                        </div>
+        }
+        else {
+            cardImage = <img/>
         }
 
         // Grab the input, and style the border forcibly.

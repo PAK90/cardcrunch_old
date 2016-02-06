@@ -103,7 +103,7 @@ var RunOnServer = React.createClass({
 			color: '#F8F8F8',
 		    backgroundColor: '#000000',
 		    borderColor: '#000000',
-		    padding: '2px',
+		    padding: '2px 2px 0px 2px',
 		    borderTopRightRadius: '5px',
 		    borderTopLeftRadius: '5px',
 		    left: '12px'
