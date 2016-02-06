@@ -286,8 +286,9 @@ var CardSearch2 = React.createClass({
         var transparent = {
             opacity: 0,
             zIndex: 1,
-            position: 'relative',
-            bottom: '310px' // Shift the card image over the blur glow background.
+            position: 'relative', // Shift the card image over the blur glow background.
+            left: '1px',
+            bottom: '311px'
         };
 
         var inline = {
