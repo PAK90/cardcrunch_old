@@ -84,7 +84,7 @@ function renderSuggestion(suggestion) {
         });
     }
     return (
-        <span>{suggestion.name} {suggestion.tagCost}</span>
+        <VelocityComponent animation={{rotateZ: [-180, 0]}} duration={500}><span>{suggestion.name} {suggestion.tagCost}</span></VelocityComponent>
     );
 }
 
@@ -203,36 +203,31 @@ var CardSearch2 = React.createClass({
             opacity: 0
         };
 
+        var inline = {
+            width: '88%',
+            margin: '0 auto'
+        };
+
         // Return a cardImage with actual image if selected, empty tag if not.
         var cardImage;
         if (this.state.cardSelected) {
-            cardImage = <img
-                        id="cardImage"
-                        style={transparent} 
-                        src={'https://image.deckbrew.com/mtg/multiverseid/'+this.state.selectedCard.multiverseids[this.state.selectedCard.multiverseids.length-1].multiverseid+'.jpg'}
-                        onLoad={this.handleImgLoad}/>
+            cardImage = <div style={inline}>
+                            <img
+                            id="cardImage"
+                            style={transparent} 
+                            src={'https://image.deckbrew.com/mtg/multiverseid/'+this.state.selectedCard.multiverseids[this.state.selectedCard.multiverseids.length-1].multiverseid+'.jpg'}
+                            onLoad={this.handleImgLoad}/>
+                        </div>
         }
         else {
             cardImage = <img/>
         }
         
-        // Animations
-        var animationEnter = {
-            duration: 100,
-            animation: Animations.In,
-            stagger: 50
-        };
-        var animationLeave = {
-            duration: 100,
-            animation: Animations.Out,
-            stagger: 50,
-            backwards: true
-        };
-
         var borderColour1, borderColour2;
         var gradient = false;
-        var isSimic = 0; // These two are needed because WR and UG colour pairs appear out of order, for some reason.
+        var isSimic = 0; // These three are needed because UW, WR and UG colour pairs appear out of order, for some reason.
         var isBoros = 0; // So if a pair is one of these, the colours need to be flipped.
+        var isSelesnya = 0;
         if (this.state.selectedCard !== null) {
             if (this.state.selectedCard.colors !== undefined) {
                 if (this.state.selectedCard.colors.length <= 2) { // Monocoloured cards. Also encode the first colour of dual-coloured cards.
@@ -241,6 +236,7 @@ var CardSearch2 = React.createClass({
                         case 'White':
                             borderColour1 = "#f8f9f4";
                             isBoros = 1;
+                            isSelesnya = 1;
                             break;
                         case 'Blue':
                             borderColour1 = "#0083c5";
@@ -277,17 +273,22 @@ var CardSearch2 = React.createClass({
                             case 'Green':
                                 borderColour2 = "#008045";
                                 isSimic++;
+                                isSelesnya++;
                                 break;
                         }
                         
-                        // Explicitly set Simic/Boros colours.
+                        // Explicitly set Simic/Boros/Selesnya colours.
                         if (isBoros == 2) {
                             borderColour1 = "#ec4b26";
                             borderColour2 = "#f8f9f4";
                         }
-                        if (isSimic == 2) {
+                        else if (isSimic == 2) {
                             borderColour1 = "#008045";
                             borderColour2 = "#0083c5";
+                        }
+                        else if (isSelesnya == 2) {
+                            borderColour1 = "#008045";
+                            borderColour2 = "#f8f9f4";
                         }
                     }
                 }
@@ -303,65 +304,65 @@ var CardSearch2 = React.createClass({
             borderColour1 = '#888888';
         }
 
-        var borderStyle;
-        if (gradient) {
-            borderStyle = {
-                borderImageSlice: 1,
-                borderImage: '-webkit-linear-gradient(right, '+borderColour2+' 0%, '+borderColour2+' 40%, '+borderColour1+' 60%, '+borderColour1+' 100%) 1'
-            };   
+        // Grab the input, and style the border forcibly.
+        var container = document.getElementsByClassName('react-autosuggest__container')
+        if (container.length != 0) {
+            var input;
+            // Of course, since we have two of these components on the page the getElements will return both. Have to distinguish which one to edit via the placeholder.
+            if (this.props.placeholder == "Card 1 here") {
+                input = container[0].childNodes[0];    
+            }
+            else if (this.props.placeholder == "Card 2 here") {
+                input = container[1].childNodes[0];
+            }
+            if (gradient) {
+                input.style.borderImageSlice = 1;
+                input.style.borderImage = '-webkit-linear-gradient(right, '+borderColour2+' 0%, '+borderColour2+' 40%, '+borderColour1+' 60%, '+borderColour1+' 100%) 1';
+            }
+            else {             
+                input.style.borderColor = borderColour1;
+                // Also remove the gradient property, otherwise it'll interfere.
+                input.style.borderImage = '';
+            }
         }
-        else {             
-            borderStyle = {
-                'borderColor': borderColour1
-            };   
-        }
-        var theme = {
-            container: 'react-autosuggest__container',
-            containerOpen: 'react-autosuggest__container--open',
-            input: borderStyle,
-            suggestionsContainer: 'react-autosuggest__suggestions-container',
-            suggestion: 'react-autosuggest__suggestion',
-            suggestionFocused: 'react-autosuggest__suggestion--focused',
-            sectionContainer: 'react-autosuggest__section-container',
-            sectionTitle: 'react-autosuggest__section-title',
-            sectionSuggestionsContainer: 'react-autosuggest__section-suggestions-container'
-        };
 
+        var inline2 = {
+            width: '73%',
+            margin: '0 auto'
+        };
         return (
             <div>
-            <VelocityTransitionGroup enter={animationEnter} leave={animationLeave}> 
                 <Autosuggest suggestions={suggestions}
-                    theme={theme}
                     onSuggestionsUpdateRequested={this.onSuggestionsUpdateRequested}
                     getSuggestionValue={getSuggestionValue}
                     renderSuggestion={renderSuggestion}
                     inputProps={inputProps}
                     ref={this.saveInput}
                     onSuggestionSelected={this.selectCard} />
-            </VelocityTransitionGroup>
-            <button type="button" className="button" onClick={this.handleRandomButtonClick}>Random Card</button>
-            <button id="search-button" onClick={this.handleFindButtonClick}>
-                <svg id="search-icon" className="search-icon" viewBox="0 0 24 24">
-                    <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
-                    <path d="M0 0h24v24H0z" fill="none"/>
-                </svg>
-            </button>
-            <button id="highlight-button" onClick={this.handleHighlightButtonClick}>
-                <svg id="highlight-icon" className="highlight-icon" viewBox="0 0 480 480">
-                    <path fill="#010002;" d="M477.546,228.616h-53.567c-9.827-80.034-74.019-143.608-154.719-153.134V20.321
-                        C269.259,9.096,260.155,0,248.938,0c-11.226,0-20.321,9.096-20.321,20.321v54.974c-81.375,8.941-146.257,72.808-156.15,153.313
-                        H20.321C9.096,228.608,0,237.704,0,248.929s9.096,20.321,20.321,20.321H72.19c8.99,81.513,74.328,146.428,156.426,155.451v52.844
-                        c0,11.226,9.096,20.321,20.321,20.321c11.217,0,20.321-9.096,20.321-20.321v-53.023c81.416-9.608,146.054-74.222,154.996-155.264
-                        h53.291c11.226,0,20.321-9.096,20.321-20.321S488.771,228.616,477.546,228.616z M269.259,383.392v-67.028
-                        c0-11.226-9.104-20.321-20.321-20.321c-11.226,0-20.321,9.096-20.321,20.321v67.24c-59.607-8.551-106.753-55.299-115.312-114.345
-                        h68.207c11.226,0,20.321-9.096,20.321-20.321s-9.096-20.321-20.321-20.321h-67.882c9.38-58.046,56.103-103.761,114.987-112.215
-                        v65.11c0,11.226,9.096,20.321,20.321,20.321c11.217,0,20.321-9.096,20.321-20.321v-64.899
-                        c58.209,8.982,104.249,54.421,113.556,112.004h-66.459c-11.226,0-20.321,9.096-20.321,20.321s9.096,20.321,20.321,20.321h66.793
-                        C374.646,327.842,328.191,374.297,269.259,383.392z"/>
-                </svg>
-            </button>
-            <br/>
-            {cardImage}
+                <div style={inline2}>
+                    <button type="button" className="button" onClick={this.handleRandomButtonClick}>Random Card</button>
+                    <button id="search-button" onClick={this.handleFindButtonClick}>
+                        <svg id="search-icon" className="search-icon" viewBox="0 0 24 24">
+                            <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/>
+                            <path d="M0 0h24v24H0z" fill="none"/>
+                        </svg>
+                    </button>
+                    <button id="highlight-button" onClick={this.handleHighlightButtonClick}>
+                        <svg id="highlight-icon" className="highlight-icon" viewBox="0 0 480 480">
+                            <path fill="#010002;" d="M477.546,228.616h-53.567c-9.827-80.034-74.019-143.608-154.719-153.134V20.321
+                                C269.259,9.096,260.155,0,248.938,0c-11.226,0-20.321,9.096-20.321,20.321v54.974c-81.375,8.941-146.257,72.808-156.15,153.313
+                                H20.321C9.096,228.608,0,237.704,0,248.929s9.096,20.321,20.321,20.321H72.19c8.99,81.513,74.328,146.428,156.426,155.451v52.844
+                                c0,11.226,9.096,20.321,20.321,20.321c11.217,0,20.321-9.096,20.321-20.321v-53.023c81.416-9.608,146.054-74.222,154.996-155.264
+                                h53.291c11.226,0,20.321-9.096,20.321-20.321S488.771,228.616,477.546,228.616z M269.259,383.392v-67.028
+                                c0-11.226-9.104-20.321-20.321-20.321c-11.226,0-20.321,9.096-20.321,20.321v67.24c-59.607-8.551-106.753-55.299-115.312-114.345
+                                h68.207c11.226,0,20.321-9.096,20.321-20.321s-9.096-20.321-20.321-20.321h-67.882c9.38-58.046,56.103-103.761,114.987-112.215
+                                v65.11c0,11.226,9.096,20.321,20.321,20.321c11.217,0,20.321-9.096,20.321-20.321v-64.899
+                                c58.209,8.982,104.249,54.421,113.556,112.004h-66.459c-11.226,0-20.321,9.096-20.321,20.321s9.096,20.321,20.321,20.321h66.793
+                                C374.646,327.842,328.191,374.297,269.259,383.392z"/>
+                        </svg>
+                    </button>
+                </div>
+                {cardImage}
             </div>
         );
     }

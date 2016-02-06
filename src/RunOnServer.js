@@ -90,7 +90,7 @@ var RunOnServer = React.createClass({
 
 		var elemInlineBlock = {
 			display: 'inline-block',
-			textAlign: 'center',
+			textAlign: 'left',
 			padding: '3px'
 		};
 
@@ -99,12 +99,14 @@ var RunOnServer = React.createClass({
 		};
 
 		var spanStyle = {
+			position: 'relative',
 			color: '#F8F8F8',
 		    backgroundColor: '#000000',
 		    borderColor: '#000000',
 		    padding: '2px',
 		    borderTopRightRadius: '5px',
-		    borderTopLeftRadius: '5px'
+		    borderTopLeftRadius: '5px',
+		    left: '12px'
 		};
 
   		// Pre-parse the card array that the python script returns. Ensure it only tries to parse when there's no error.
@@ -126,20 +128,23 @@ var RunOnServer = React.createClass({
 		    // If the card's hovering is true, render it fullsize. If false, render it with the squeeze style.
 	  		var images = cardArray.resultCards.map(function(card){
 	        	if (card.hovered) {
-	                return <div style={elemInlineBlock}><span style={spanStyle}>{Math.round(card.deviation * 10000)/10000}</span>
-                		<button id="search-button-small" onClick={this.handleFindButtonClick.bind(this, card.cardname)}>
-                    		<FindIcon/>
-                 		</button>
-                 		<button id="highlight-button-small" onClick={this.handleHighlightButtonClick.bind(this, card.cardname)}>
-			                <CrosshairIcon/>
-		            	</button>
-	                	<img style={elemBlock} onMouseOver={this.handleHover.bind(this, card.cardname)}
-	                	onMouseOut={this.handleHover.bind(this, '')}
-	                	src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/>
+	                return <div style={elemInlineBlock} onMouseOver={this.handleHover.bind(this, card.cardname)}
+			                	onMouseOut={this.handleHover.bind(this, '')}>
+			                	<span style={spanStyle}>{Math.round(card.deviation * 10000)/10000}</span>
+		                		<button id="search-button-small" onClick={this.handleFindButtonClick.bind(this, card.cardname)}>
+		                    		<FindIcon/>
+		                 		</button>
+		                 		<button id="highlight-button-small" onClick={this.handleHighlightButtonClick.bind(this, card.cardname)}>
+					                <CrosshairIcon/>
+				            	</button>
+		                	<img style={elemBlock} 
+		                	src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/>
 	                </div>;
 	            }
 	            else {
-	                return <div style={elemInlineBlock}><span style={spanStyle}>{Math.round(card.deviation * 10000)/10000}</span>
+	                return <div style={elemInlineBlock} onMouseOver={this.handleHover.bind(this, card.cardname)}
+	                	onMouseOut={this.handleHover.bind(this, '')}>
+	                	<span style={spanStyle}>{Math.round(card.deviation * 10000)/10000}</span>
                 		<button id="search-button-small" onClick={this.handleFindButtonClick.bind(this, card.cardname)}>
                     		<FindIcon/>
                  		</button>
@@ -147,8 +152,6 @@ var RunOnServer = React.createClass({
 			                <CrosshairIcon/>
 		            	</button>
 	                	<img style={squeeze}
-	                	onMouseOver={this.handleHover.bind(this, card.cardname)}
-	                	onMouseOut={this.handleHover.bind(this, '')}
 	                	onLoad={this.handleImgLoad}
 	                	src={'https://image.deckbrew.com/mtg/multiverseid/'+cardObject[card.cardname].multiverseids[cardObject[card.cardname].multiverseids.length-1].multiverseid+'.jpg'}/>
 	                </div>;

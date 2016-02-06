@@ -40,7 +40,6 @@ input[type=text]{
     border: 6px solid $border-colour;
     padding: 5px 5px;
     font-size: 15px;
-    /*box-shadow: 0 1px 1px #DDD;*/
     width: 263px;
     outline: none;
     display: block;
@@ -49,8 +48,8 @@ input[type=text]{
     margin: 0 auto 20px;
 }
 
+/* The slider. */
 input[type=range]{
-    padding: 5px 5px;
     width: 263px;
     display: inline-block;
     background-color: transparent;
@@ -84,6 +83,17 @@ input[type=range]::-moz-range-track {
   border: 0.2px solid #010101;
 }
 
+input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background-color: #ecf0f1;
+    border: 1px solid #bdc3c7;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+/* All images have border radius to cut off white corners. */
 tr td div img{
     border-radius: 13px;
 }
@@ -158,6 +168,7 @@ ul li:hover, ul li:focus{
 #search-button-small {
     position: relative;
     top: 3px;
+    left: 12px;
     width: 22px;
     height: 22px;
     background-color: #000000;
@@ -214,6 +225,7 @@ ul li:hover, ul li:focus{
 #highlight-button-small {
     position: relative;
     top: 3px;
+    left: 12px;
     width: 22px;
     height: 22px;
     background-color: #000000;

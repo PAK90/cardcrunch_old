@@ -48,7 +48,7 @@ var plotConfig = {
 	        align: 'left',
 	        verticalAlign: 'top',
 	        x: 30,
-	        y: 0,
+	        y: 45,
 	        floating: true,
 	        backgroundColor: 'rgba(200,200,200,0.7)',
 	        borderWidth: 1
@@ -154,7 +154,7 @@ var CosinePlot = React.createClass({
 		var correctedString, point, targetX, targetY;
 		if (nextProps.zoomString != this.state.zoomString) {
 			// First we need to sanitize the string. Probably could do this in index.js at this point.
-			correctedString = nextProps.zoomString.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e");
+			correctedString = nextProps.zoomString.toLowerCase().replace("-","~").replace("-", "~").replace("-", "~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e");
 			// Then get the x/y coordinates of the point.
 			point = chart.get(correctedString);
 			if (point !== null) {
@@ -171,7 +171,7 @@ var CosinePlot = React.createClass({
 			}
 		}
 		else if (nextProps.highlightString != this.props.highlightString) {
-			correctedString = nextProps.highlightString.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e");
+			correctedString = nextProps.highlightString.toLowerCase().replace("-","~").replace("-", "~").replace("-", "~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e");
 			// Get the x/y coordinates of the point.
 			point = chart.get(correctedString);
 			if (point !== null) {

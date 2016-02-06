@@ -22,7 +22,7 @@ var cardArray = Object.keys(cards).map(function(cardName) {
 // Just go in and create a new key, and replace each object's key with the new key.
 for (var key in cards) {
     var keyLower = key.toLowerCase();
-    var keyLowerDash = keyLower.replace("-", "~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e");
+    var keyLowerDash = keyLower.replace("-", "~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("-", "~").replace("-", "~").replace("á","a").replace("é","e");
     if (keyLowerDash !== key) {
         var temp = cards[key];
         delete cards[key];
@@ -48,8 +48,8 @@ var Parent = React.createClass({
             dataType: 'text',
             cache: false,
             // The card names are stored in the python script sources in lowercase and with ~ instead of -, as well as many other letter replacements.
-            data: {card1: this.state.card1.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e"),
-                   card2: this.state.card2.toLowerCase().replace("-","~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e"),
+            data: {card1: this.state.card1.toLowerCase().replace("-","~").replace("-", "~").replace("-", "~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e"),
+                   card2: this.state.card2.toLowerCase().replace("-","~").replace("-", "~").replace("-", "~").replace("æ","ae").replace('û','u').replace('!','').replace('ú','u').replace('â','a').replace('ö','o').replace("-", "~").replace("á","a").replace("é","e"),
                    slider: this.state.slider},
             success: function(data) {
                 this.setState({combinationData: data});
@@ -138,13 +138,14 @@ var Parent = React.createClass({
                     onClick={this.handleClick} />
                 </td>
                 <td>
-                <CardSearch 
-                    items={ cardArray } 
+                <CardSearch2
                     placeholder="Card 2 here" 
                     card={this.state.card2} 
                     updateCard={this.updateCard2} 
                     updateCombineState={this.updateCombineState2}
-                    updateZoomCard={this.updateZoomCard}/>
+                    updateZoomCard={this.updateZoomCard}
+                    updateHighlightCard={this.updateHighlightCard}
+                    searchWordFirst={this.state.switch}/>
                 </td>
                 <td>
                     <CosinePlot zoomString={this.state.zoomCard} highlightString={this.state.highlightCard}/>
