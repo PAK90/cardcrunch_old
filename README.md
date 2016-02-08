@@ -1,7 +1,8 @@
 CardCrunch
 ==
+First install Node.js (from https://nodejs.org/en/download). Node's package manager, npm, comes with the node installer.
 
-Use the usual npm procedures, the application will start on http://localhost:3333.
+Use the npm procedures below, and the application will start on http://localhost:3333.
 
 ```bash
 npm install
